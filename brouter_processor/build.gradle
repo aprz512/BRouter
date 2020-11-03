@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.auto.service:auto-service:1.0-rc7'
+    implementation project(':brouter_annotation')
+    implementation 'com.squareup:javapoet:1.13.0'
+    implementation 'org.apache.commons:commons-lang3:3.11'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding='UTF-8'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
