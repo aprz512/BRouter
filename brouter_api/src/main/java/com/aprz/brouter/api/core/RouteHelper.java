@@ -1,10 +1,10 @@
-package com.aprz.brouter_api.core;
+package com.aprz.brouter.api.core;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.aprz.brouter_api.IRouteGroup;
-import com.aprz.brouter_api.util.ClassUtils;
+import com.aprz.brouter.api.IRouteGroup;
+import com.aprz.brouter.api.util.ClassUtils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
