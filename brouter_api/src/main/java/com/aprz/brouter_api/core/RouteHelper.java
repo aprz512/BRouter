@@ -38,4 +38,11 @@ public class RouteHelper {
         }
     }
 
+    public static void injectRouteByPlugin() {
+        // 生成下面这样的字节码
+//         new BRouter$$Group$$xxx().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$yyy().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$zzz().loadInto(RouteStore.getRouteMap());
+    }
+
 }

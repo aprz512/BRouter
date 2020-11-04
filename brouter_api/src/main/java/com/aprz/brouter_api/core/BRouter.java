@@ -20,8 +20,16 @@ public class BRouter {
     private static Context sContext;
 
     public static void init(Application context) {
+        init(context, false);
+    }
+
+    public static void init(Application context, boolean registerByPlugin) {
         sContext = context;
-        RouteHelper.loadRoute(context);
+        if (registerByPlugin) {
+            RouteHelper.injectRouteByPlugin();
+        } else {
+            RouteHelper.loadRoute(context);
+        }
     }
 
     public void navigate(String path) {

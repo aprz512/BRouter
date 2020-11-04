@@ -1,0 +1,2 @@
+include ':brouter_plugin'
+include ':app', ':brouter_annotation', ':brouter_api', ':brouter_processor', ':wallet'
