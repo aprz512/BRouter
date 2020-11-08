@@ -1,0 +1,6 @@
+include ':wallet'
+include ':brouter_api'
+include ':brouter_annotation'
+include ':brouter_processor'
+include ':app'
+rootProject.name = "BRouter"
