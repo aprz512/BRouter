@@ -118,7 +118,7 @@ public class RouterProcessor extends BaseProcessor {
 
         }
 
-        String routeMapFileName = "BRouter$$Group$$" + moduleName;
+        String routeMapFileName = "BRouter$$Route$$" + moduleName;
         JavaFile.builder("com.aprz.brouter.routes",
                 TypeSpec.classBuilder(routeMapFileName)
                         .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter_api.IRouteGroup")))

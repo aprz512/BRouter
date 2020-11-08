@@ -14,7 +14,7 @@ public class RouteHelper {
 
     public static void loadRoute(Context context) {
         try {
-            // 找到指定报名下的所有类
+            // 找到指定包名下的所有类
             Set<String> fileNameByPackageName = ClassUtils.getFileNameByPackageName(context, "com.aprz.brouter.routes");
             for (String className : fileNameByPackageName) {
                 ((IRouteGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(RouteStore.getRouteMap());
@@ -36,13 +36,6 @@ public class RouteHelper {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
-    
-        public static void injectRouteByPlugin() {
-        // 生成下面这样的字节码
-//         new BRouter$$Group$$xxx().loadInto(RouteStore.getRouteMap());
-        // new BRouter$$Group$$yyy().loadInto(RouteStore.getRouteMap());
-        // new BRouter$$Group$$zzz().loadInto(RouteStore.getRouteMap());
     }
 
     public static void injectRouteByPlugin() {

@@ -4,7 +4,9 @@ import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project;
 
-
+/**
+ * 从 Matrix 学来的，将 java 代码写到 java 目录，方便些
+ */
 class AutoRegisterPlugin implements Plugin<Project> {
 
     @Override

@@ -12,3 +12,19 @@ dependencies {
 
 sourceCompatibility = "7"
 targetCompatibility = "7"
+
+sourceSets {
+    main {
+        groovy {
+            srcDir '../brouter_plugin/src/main/groovy'
+        }
+
+        java {
+            srcDir "../brouter_plugin/src/main/java"
+        }
+
+        resources {
+            srcDir '../brouter_plugin/src/main/resources'
+        }
+    }
+}
