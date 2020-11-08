@@ -1,10 +1,10 @@
-package com.aprz.brouter_api.core;
+package com.aprz.brouter.api.core;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.aprz.brouter_api.IRouteGroup;
-import com.aprz.brouter_api.util.ClassUtils;
+import com.aprz.brouter.api.IRouteGroup;
+import com.aprz.brouter.api.util.ClassUtils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -36,6 +36,20 @@ public class RouteHelper {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    
+        public static void injectRouteByPlugin() {
+        // 生成下面这样的字节码
+//         new BRouter$$Group$$xxx().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$yyy().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$zzz().loadInto(RouteStore.getRouteMap());
+    }
+
+    public static void injectRouteByPlugin() {
+        // 生成下面这样的字节码
+//         new BRouter$$Group$$xxx().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$yyy().loadInto(RouteStore.getRouteMap());
+        // new BRouter$$Group$$zzz().loadInto(RouteStore.getRouteMap());
     }
 
 }

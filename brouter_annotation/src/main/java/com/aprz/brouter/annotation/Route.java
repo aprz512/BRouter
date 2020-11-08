@@ -1,4 +1,4 @@
-package com.aprz.brouter_annotation;
+package com.aprz.brouter.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

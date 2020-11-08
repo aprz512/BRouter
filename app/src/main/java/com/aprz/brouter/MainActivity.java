@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.aprz.brouter_annotation.Route;
-import com.aprz.brouter_api.core.BRouter;
+import com.aprz.brouter.api.core.BRouter;
 
 public class MainActivity extends AppCompatActivity {
 

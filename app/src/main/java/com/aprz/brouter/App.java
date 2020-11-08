@@ -3,7 +3,7 @@ package com.aprz.brouter;
 import android.app.Application;
 import android.content.Context;
 
-import com.aprz.brouter_api.core.BRouter;
+import com.aprz.brouter.api.core.BRouter;
 
 public class App extends Application {
 

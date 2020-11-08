@@ -1,6 +1,6 @@
-package com.aprz.brouter_processor;
+package com.aprz.brouter.processor;
 
-import com.aprz.brouter_annotation.Route;
+import com.aprz.brouter.annotation.Route;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -15,11 +15,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -27,11 +24,8 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import javax.tools.Diagnostic;
 
-import jdk.nashorn.internal.ir.FunctionNode;
-
-import static com.aprz.brouter_processor.Constant.ACTIVITY;
+import static com.aprz.brouter.processor.Constant.ACTIVITY;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @AutoService(Processor.class)

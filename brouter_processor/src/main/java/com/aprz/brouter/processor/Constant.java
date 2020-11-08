@@ -1,4 +1,4 @@
-package com.aprz.brouter_processor;
+package com.aprz.brouter.processor;
 
 public class Constant {
 

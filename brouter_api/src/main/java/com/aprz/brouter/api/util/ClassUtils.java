@@ -1,4 +1,4 @@
-package com.aprz.brouter_api.util;
+package com.aprz.brouter.api.util;
 
 // Copy from galaxy sdk ${com.alibaba.android.galaxy.utils.ClassUtils}
 

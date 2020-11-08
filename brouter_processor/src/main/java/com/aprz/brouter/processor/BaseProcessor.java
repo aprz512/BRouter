@@ -1,4 +1,4 @@
-package com.aprz.brouter_processor;
+package com.aprz.brouter.processor;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +13,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
-import static com.aprz.brouter_processor.Constant.KEY_MODULE_NAME;
+import static com.aprz.brouter.processor.Constant.KEY_MODULE_NAME;
 
 /**
  * 容易犯的错误：

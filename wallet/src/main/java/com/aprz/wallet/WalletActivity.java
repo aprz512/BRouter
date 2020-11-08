@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.aprz.brouter_annotation.Route;
+import com.aprz.brouter.annotation.Route;
 
 @Route(path = "wallet/main")
 public class WalletActivity extends AppCompatActivity {

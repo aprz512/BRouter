@@ -1,4 +1,4 @@
-package com.aprz.brouter_api.core;
+package com.aprz.brouter.api.core;
 
 import android.app.Activity;
 
