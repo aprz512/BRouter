@@ -12,7 +12,6 @@ import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.WildcardTypeName;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -29,7 +28,7 @@ import static com.aprz.brouter.processor.Constant.ACTIVITY;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @AutoService(Processor.class)
-@SupportedAnnotationTypes({"com.aprz.brouter_annotation.Route"})
+@SupportedAnnotationTypes({"com.aprz.brouter.annotation.Route"})
 public class RouterProcessor extends BaseProcessor {
 
     @Override
@@ -118,10 +117,10 @@ public class RouterProcessor extends BaseProcessor {
 
         }
 
-        String routeMapFileName = "BRouter$$Route$$" + moduleName;
+        String routeMapFileName = "BRouter$$RouteGroup$$" + moduleName;
         JavaFile.builder("com.aprz.brouter.routes",
                 TypeSpec.classBuilder(routeMapFileName)
-                        .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter_api.IRouteGroup")))
+                        .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteGroup")))
                         .addModifiers(PUBLIC)
                         .addMethod(loadIntoMethodBuilder.build())
                         .build()
