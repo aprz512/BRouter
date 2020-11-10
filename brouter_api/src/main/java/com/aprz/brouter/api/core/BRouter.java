@@ -35,7 +35,11 @@ public class BRouter {
     public void navigate(String path) {
         Class<? extends Activity> targetClass = RouteStore.getRouteMap().get(path);
         if (targetClass != null) {
-            sContext.startActivity(new Intent(sContext, targetClass));
+            Intent intent = new Intent(sContext, targetClass);
+            if (!targetClass.getPackage().getName().equals(sContext.getPackageName())) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            sContext.startActivity(intent);
         }
     }
 
