@@ -20,5 +20,12 @@ public class MainActivity extends AppCompatActivity {
                 BRouter.getInstance().navigate("wallet/main");
             }
         });
+
+        findViewById(R.id.jump2Login).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BRouter.getInstance().navigate("login/main");
+            }
+        });
     }
 }
