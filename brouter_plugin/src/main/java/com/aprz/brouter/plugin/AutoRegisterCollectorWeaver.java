@@ -17,7 +17,7 @@ import java.util.Arrays;
  * Class desc: 流程有点问题
  * 需要先收集所有的 class 然后再处理
  */
-public class AutoRegisterWeaver extends BaseWeaver {
+public class AutoRegisterCollectorWeaver extends BaseWeaver {
 
 
     @Override
@@ -27,7 +27,7 @@ public class AutoRegisterWeaver extends BaseWeaver {
 
     class AutoRegisterClassAdapter extends ClassVisitor {
 
-        boolean needInject;
+        boolean isRouteGroupClass;
 
         public AutoRegisterClassAdapter(int api, ClassVisitor classVisitor) {
             super(api, classVisitor);
@@ -41,13 +41,17 @@ public class AutoRegisterWeaver extends BaseWeaver {
             int index = className.lastIndexOf(".");
             if (index != -1) {
                 String packageName = className.substring(0, index + 1);
-                needInject = implementation && "com.aprz.brouter.routes".equals(packageName);
+                isRouteGroupClass = implementation && "com.aprz.brouter.routes".equals(packageName);
+                if(isRouteGroupClass) {
+                    // 将所有 RouterGroup 类都收集起来
+                    AutoRegisterSettings.routeGroup.classList.add(name);
+                }
             }
         }
 
         @Override
         public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-            if (!needInject) {
+            if (!isRouteGroupClass) {
                 return super.visitMethod(access, name, descriptor, signature, exceptions);
             }
             MethodVisitor methodVisitor = cv.visitMethod(access, name, descriptor, signature, exceptions);

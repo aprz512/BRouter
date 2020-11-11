@@ -32,7 +32,7 @@ public abstract class BaseTransform extends Transform {
     /**
      * 尽量的敲诈电脑的资源
      */
-    private ExecutorService executor = Executors.newFixedThreadPool(16);
+    protected ExecutorService executor = Executors.newFixedThreadPool(16);
 
     public BaseTransform(BaseWeaver weaver) {
         this.weaver = weaver;
@@ -164,7 +164,7 @@ public abstract class BaseTransform extends Transform {
         });
     }
 
-    private void transformDir(final File inputDir, final File outputDir) {
+    protected void transformDir(final File inputDir, final File outputDir) {
         final String inputDirPath = inputDir.getAbsolutePath();
         final String outputDirPath = outputDir.getAbsolutePath();
         if (inputDir.isDirectory()) {
