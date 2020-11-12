@@ -6,25 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/navigate"
-        android:layout_width="wrap_content"
+    <com.aprz.brouter.view.XFlowLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World! 点我跳转"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:h_space="1dp"
+        app:v_space="1dp">
+        <Button
+            android:id="@+id/navigate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World! 点我跳转"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/jump2Login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="跳转登录"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigate" />
+        <Button
+            android:id="@+id/jump2Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转登录"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigate" />
+
+
+        <Button
+            android:id="@+id/registLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载登录组件"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/jump2Login" />
+
+
+        <Button
+            android:id="@+id/unregistLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卸载登录组件"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registLogin" />
+    </com.aprz.brouter.view.XFlowLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

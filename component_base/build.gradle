@@ -12,14 +12,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [BROUTER_MODULE_NAME: project.getName(),
-                             "HOST"           : "login",
-                ]
-            }
-        }
     }
 
     buildTypes {
@@ -35,14 +27,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation project(path: ':brouter_annotation')
-    annotationProcessor project(path: ':brouter_processor')
-    implementation project(path: ':brouter_api')
-
-    api project(':component_base')
+    api project(':component_impl')
 }

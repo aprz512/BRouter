@@ -6,3 +6,6 @@ include ':app'
 include ':brouter_plugin'
 rootProject.name = "BRouter"
 include ':login'
+include ':component_impl'
+include ':component_base'
+include ':component_api'
