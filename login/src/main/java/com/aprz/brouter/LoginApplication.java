@@ -21,6 +21,10 @@ public class LoginApplication implements IComponentLifecycle {
     @Override
     public void onCreate(@NonNull Application app) {
         Log.i("LoginApplication", "onCreate");
+        /**
+         * 得知自己被加载后，可以获取一些主程序的信息，比如版本信息，包名等等
+         */
+
     }
 
     @Override
