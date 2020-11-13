@@ -40,9 +40,16 @@ public class RouteHelper {
 
     public static void injectRouteByPlugin() {
         // 生成下面这样的字节码
-//         new BRouter$$Group$$xxx().loadInto(RouteStore.getRouteMap());
-        // new BRouter$$Group$$yyy().loadInto(RouteStore.getRouteMap());
-        // new BRouter$$Group$$zzz().loadInto(RouteStore.getRouteMap());
+        // register(new BRouter$$Group$$xxx());
+        // register(new BRouter$$Group$$yyy());
+        // register(new BRouter$$Group$$zzz());
+    }
+
+    /**
+     * 纯粹是为了简化 asm 的编写
+     */
+    private static void register(IRouteGroup group) {
+        group.loadInto(RouteStore.getRouteMap());
     }
 
 }
