@@ -1,8 +1,8 @@
 package com.aprz.brouter.plugin;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class AutoRegisterSettings {
 
@@ -12,7 +12,13 @@ public class AutoRegisterSettings {
     public static RouteGroup routeGroup;
 
     public static class RouteGroup {
-        public List<String> classList = new ArrayList<>();
+        public List<String> classList = new Vector<>();
+
+        public void addClass(String className) {
+            if (!classList.contains(className)) {
+                classList.add(className);
+            }
+        }
     }
 
 }

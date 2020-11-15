@@ -12,6 +12,7 @@ import com.android.build.api.transform.TransformInvocation;
 import com.android.build.api.transform.TransformOutputProvider;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.aprz.brouter.plugin.util.FileUtil;
+import com.aprz.brouter.plugin.util.Log;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -26,20 +27,23 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static com.aprz.brouter.plugin.AutoRegisterSettings.injectFile;
 import static org.objectweb.asm.Opcodes.DUP;
 import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
 import static org.objectweb.asm.Opcodes.INVOKESTATIC;
@@ -52,7 +56,9 @@ public class RouteRegisterTransform extends Transform {
     /**
      * 尽量的敲诈电脑的资源
      */
-    protected ExecutorService executor = Executors.newFixedThreadPool(16);
+    private ExecutorService executor = Executors.newFixedThreadPool(16);
+    private List<Future<?>> result = new ArrayList<>();
+
 
     @Override
     public String getName() {
@@ -71,6 +77,11 @@ public class RouteRegisterTransform extends Transform {
 
     @Override
     public boolean isIncremental() {
+        /*
+         * TODO
+         * 仔细想了一下，这个玩意好像没法支持增量
+         * 待验证
+         */
         return true;
     }
 
@@ -89,7 +100,25 @@ public class RouteRegisterTransform extends Transform {
         Collection<TransformInput> transformInputs = transformInvocation.getInputs();
         collectClass(isIncremental, outputProvider, transformInputs);
 
+
+        // 多线程一定要等待完成，这里调了一下午...
+        for (Future<?> future : result) {
+            try {
+                future.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        result.clear();
+
+        if (AutoRegisterSettings.injectFile == null
+                || AutoRegisterSettings.routeGroup.classList.isEmpty()) {
+            return;
+        }
+
         // 在这里注入代码
+//        Log.e(TAG, "transform " + AutoRegisterSettings.injectFile.getName());
         if (AutoRegisterSettings.injectFile.getName().endsWith("jar")) {
             injectJar();
         } else {
@@ -104,7 +133,6 @@ public class RouteRegisterTransform extends Transform {
                 File dest = outputProvider.getContentLocation(directoryInput.getName(),
                         directoryInput.getContentTypes(), directoryInput.getScopes(),
                         Format.DIRECTORY);
-                FileUtils.forceMkdir(dest);
 
                 if (isIncremental) {
                     String srcDirPath = directoryInput.getFile().getAbsolutePath();
@@ -140,8 +168,9 @@ public class RouteRegisterTransform extends Transform {
             }
             for (JarInput jarInput : transformInput.getJarInputs()) {
                 Status status = jarInput.getStatus();
+                File src = jarInput.getFile();
                 File dest = outputProvider.getContentLocation(
-                        jarInput.getFile().getAbsolutePath(),
+                        src.getAbsolutePath(),
                         jarInput.getContentTypes(),
                         jarInput.getScopes(),
                         Format.JAR);
@@ -153,7 +182,7 @@ public class RouteRegisterTransform extends Transform {
                             break;
                         case ADDED:
                         case CHANGED:
-                            transformJar(jarInput.getFile(), dest);
+                            transformJar(src, dest);
                             break;
                         case REMOVED:
                             if (dest.exists()) {
@@ -164,42 +193,48 @@ public class RouteRegisterTransform extends Transform {
                             break;
                     }
                 } else {
-                    transformJar(jarInput.getFile(), dest);
+                    transformJar(src, dest);
                 }
             }
         }
     }
 
     private void transformJar(final File source, final File dest) {
-        executor.execute(new Runnable() {
+        Future<?> submit = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    // 扫描文件
-                    scanJar(source, dest);
                     // 复制文件
                     FileUtils.copyFile(source, dest);
+                    // 扫描文件
+                    scanJar(source, dest);
+//                    Log.e(TAG, "transformJar SOURCE " + source);
+//                    Log.e(TAG, "transformJar DEST " + dest);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.e(TAG, e.toString());
                 }
             }
         });
+        result.add(submit);
 
     }
 
     private void scanJar(File source, File dest) throws IOException {
+
         ZipFile inputZip = new ZipFile(source);
         Enumeration<? extends ZipEntry> inEntries = inputZip.entries();
         while (inEntries.hasMoreElements()) {
             ZipEntry entry = inEntries.nextElement();
             String name = entry.getName();
-
             if (name.startsWith("com/aprz/brouter/routes/")) {
+//                Log.e(TAG, "scanJar - startsWith " + name);
                 InputStream inputStream = inputZip.getInputStream(entry);
                 scanClass(inputStream);
                 inputStream.close();
             } else if (AutoRegisterSettings.ROUTE_HELPER_CLASS.equals(name)) {
-                injectFile = dest;
+                AutoRegisterSettings.injectFile = dest;
+//                Log.e(TAG, "scanJar - ROUTE_HELPER_CLASS " + dest + "/" + dest.getName());
             }
         }
         inputZip.close();
@@ -214,50 +249,46 @@ public class RouteRegisterTransform extends Transform {
     }
 
     private void transformFile(final File inputFile, final File outputFile) {
-        executor.execute(new Runnable() {
+        Future<?> submit = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
+                    FileUtils.copyFile(inputFile, outputFile);
                     if (isRouteGroupClass(inputFile)) {
                         scanClass(new FileInputStream(inputFile));
-                    } else if (isInjectFile(inputFile)) {
-                        injectFile = outputFile;
                     }
-                    FileUtils.copyFile(inputFile, outputFile);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.e(TAG, e.toString());
                 }
             }
         });
+        result.add(submit);
     }
 
     private void transformDir(final File inputDir, final File outputDir) {
-        executor.execute(new Runnable() {
+        Future<?> submit = executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
                     FileUtils.copyDirectory(inputDir, outputDir);
                     for (File file : com.android.utils.FileUtils.getAllFiles(outputDir)) {
+//                        Log.e(TAG, "file " + file.getAbsolutePath());
                         if (isRouteGroupClass(file)) {
                             scanClass(new FileInputStream(file));
-                        } else if (isInjectFile(file)) {
-                            injectFile = file;
                         }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                    Log.e(TAG, e.toString());
                 }
             }
         });
-
+        result.add(submit);
     }
 
     private boolean isRouteGroupClass(File file) {
         return file.getAbsolutePath().startsWith(AutoRegisterSettings.ROUTE_GROUP_PACKAGE);
-    }
-
-    private boolean isInjectFile(File file) {
-        return (file.getAbsolutePath() + "/" + file.getName()).equals(AutoRegisterSettings.ROUTE_HELPER_CLASS);
     }
 
     static class ScanClassVisitor extends ClassVisitor {
@@ -271,19 +302,27 @@ public class RouteRegisterTransform extends Transform {
                           String superName, String[] interfaces) {
             super.visit(version, access, name, signature, superName, interfaces);
             boolean implementation = Arrays.toString(interfaces).contains("com/aprz/brouter/api/IRouteGroup");
+//            Log.e(TAG, "ScanClassVisitor - implementation - " + implementation);
             String className = name.replace("/", ".");
+//            Log.e(TAG, "ScanClassVisitor - className - " + className);
             int index = className.lastIndexOf(".");
+//            Log.e(TAG, "ScanClassVisitor - index - " + index);
             if (index != -1) {
-                String packageName = className.substring(0, index + 1);
+                String packageName = className.substring(0, index);
+//                Log.e(TAG, "ScanClassVisitor - packageName - " + packageName);
                 if (implementation && "com.aprz.brouter.routes".equals(packageName)) {
                     // 将所有 RouterGroup 类都收集起来
-                    AutoRegisterSettings.routeGroup.classList.add(name);
+                    AutoRegisterSettings.routeGroup.addClass(name);
+//                    Log.e(TAG, "ScanClassVisitor - ADD " + name);
                 }
             }
         }
     }
 
     private void injectJar() throws IOException {
+
+//        Log.e(TAG, "injectJar " + injectFile.getAbsolutePath());
+
         File jarFile = AutoRegisterSettings.injectFile;
         File optJar = new File(jarFile.getParent(), jarFile.getName() + ".opt");
         if (optJar.exists()) {
@@ -323,6 +362,7 @@ public class RouteRegisterTransform extends Transform {
         ClassWriter cw = new ClassWriter(cr, 0);
         ClassVisitor cv = new InjectVisitor(Opcodes.ASM5, cw);
         cr.accept(cv, ClassReader.EXPAND_FRAMES);
+        inputStream.close();
         return cw.toByteArray();
     }
 
