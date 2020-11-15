@@ -78,11 +78,10 @@ public class RouteRegisterTransform extends Transform {
     @Override
     public boolean isIncremental() {
         /*
-         * TODO
          * 仔细想了一下，这个玩意好像没法支持增量
-         * 待验证
+         * 假设，删除了一个目标文件，那么增量的情况下没法去删除前面增加的代码
          */
-        return true;
+        return false;
     }
 
     @Override
