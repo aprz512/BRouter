@@ -14,7 +14,7 @@ class AutoRegisterPlugin implements Plugin<Project> {
         // 添加一个 transform
         def ext = project.extensions.getByType(BaseExtension)
         def transform = new RouteRegisterTransform(project)
-        AutoRegisterSettings.RouteGroup = new AutoRegisterSettings.RouteGroup()
+        AutoRegisterSettings.routeGroup = new AutoRegisterSettings.RouteGroup()
         ext.registerTransform(transform)
     }
 
