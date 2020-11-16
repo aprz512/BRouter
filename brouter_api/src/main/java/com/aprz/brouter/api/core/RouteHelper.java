@@ -39,7 +39,7 @@ public class RouteHelper {
     }
 
     public static void injectRouteByPlugin() {
-        // 生成下面这样的字节码
+        // 在这个方法里面生成下面这样的字节码
         // register(new BRouter$$Group$$xxx());
         // register(new BRouter$$Group$$yyy());
         // register(new BRouter$$Group$$zzz());

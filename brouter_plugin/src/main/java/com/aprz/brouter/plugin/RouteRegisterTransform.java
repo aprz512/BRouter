@@ -232,6 +232,7 @@ public class RouteRegisterTransform extends Transform {
                 scanClass(inputStream);
                 inputStream.close();
             } else if (AutoRegisterSettings.ROUTE_HELPER_CLASS.equals(name)) {
+                // 需要插桩的类
                 AutoRegisterSettings.injectFile = dest;
 //                Log.e(TAG, "scanJar - ROUTE_HELPER_CLASS " + dest + "/" + dest.getName());
             }
