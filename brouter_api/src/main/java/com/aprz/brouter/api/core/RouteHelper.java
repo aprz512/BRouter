@@ -3,7 +3,7 @@ package com.aprz.brouter.api.core;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.aprz.brouter.api.IRouteGroup;
+import com.aprz.brouter.api.IRouteMap;
 import com.aprz.brouter.api.util.ClassUtils;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class RouteHelper {
             // 找到指定包名下的所有类
             Set<String> fileNameByPackageName = ClassUtils.getFileNameByPackageName(context, "com.aprz.brouter.routes");
             for (String className : fileNameByPackageName) {
-                ((IRouteGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(RouteStore.getRouteMap());
+                ((IRouteMap) (Class.forName(className).getConstructor().newInstance())).loadMap(RouteStore.getRouteMap());
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -48,8 +48,8 @@ public class RouteHelper {
     /**
      * 纯粹是为了简化 asm 的编写
      */
-    private static void register(IRouteGroup group) {
-        group.loadInto(RouteStore.getRouteMap());
+    private static void register(IRouteMap group) {
+        group.loadMap(RouteStore.getRouteMap());
     }
 
 }

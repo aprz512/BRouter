@@ -14,6 +14,7 @@ import com.squareup.javapoet.WildcardTypeName;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +25,7 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
+import javax.tools.Diagnostic;
 
 import static com.aprz.brouter.processor.Constant.ACTIVITY;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -90,6 +92,38 @@ public class RouterProcessor extends BaseProcessor {
          * map.loadInto(xxx);
          */
 
+        String mapClass = buildMapClass(routeElements);
+
+        /*
+        懒加载
+        生成两个类，
+        一个类用来记录映射表，我们叫做 module map
+        一个类用来记录 module map 这个类，我们叫做 module group
+        其实就是为了节省内存，用户不用的 module，就暂时不用加载它的映射表
+
+        class M implements IRouteModule {
+
+            void loadModule(List<IRouteMap> moduleList) {
+                moduleList.add(xxx);
+            }
+
+        }
+
+        class N implements IRouteMap {
+
+            void loadMap(Map<String, Class<? extends Activity>> routeMap) {
+                routeMap.put("xxx", yyy.class);
+            }
+
+        }
+
+        然后，初始化的时候只加载 M 类，执行跳转逻辑的时候，再去加载 N 类，这样就省了内存。
+         */
+
+        buildModuleClass(mapClass);
+    }
+
+    private String buildMapClass(Set<? extends Element> routeElements) throws IOException {
         TypeMirror type_Activity = elementUtils.getTypeElement(ACTIVITY).asType();
 
 
@@ -106,13 +140,13 @@ public class RouterProcessor extends BaseProcessor {
         // 生成 routeMap 参数
         ParameterSpec groupParamSpec = ParameterSpec.builder(inputMapTypeOfGroup, "routeMap").build();
 
-        // 生成 loadInto 方法
-        MethodSpec.Builder loadIntoMethodBuilder = MethodSpec.methodBuilder("loadInto")
+        // 生成 loadMap 方法
+        MethodSpec.Builder loadIntoMethodBuilder = MethodSpec.methodBuilder("loadMap")
                 .addAnnotation(Override.class)
                 .addModifiers(PUBLIC)
                 .addParameter(groupParamSpec);
 
-        // 填充 loadInto 方法，由于映射表较多，所以使用一个循环
+        // 填充 loadMap 方法，由于映射表较多，所以使用一个循环
         for (Element element : routeElements) {
             TypeMirror tm = element.asType();
             Route route = element.getAnnotation(Route.class);
@@ -123,12 +157,45 @@ public class RouterProcessor extends BaseProcessor {
 
         }
 
-        String routeMapFileName = "BRouter$$RouteGroup$$" + moduleName;
+        String routeMapFileName = "BRouter$$RouteMap$$" + moduleName;
         JavaFile.builder("com.aprz.brouter.routes",
                 TypeSpec.classBuilder(routeMapFileName)
-                        .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteGroup")))
+                        .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteMap")))
                         .addModifiers(PUBLIC)
                         .addMethod(loadIntoMethodBuilder.build())
+                        .build()
+        ).build().writeTo(mFiler);
+        return routeMapFileName;
+    }
+
+    private void buildModuleClass(String routeMapFileName) throws IOException {
+
+
+        // 再生成一个类
+        // 生成一个 List<IRouteMap> moduleList
+        ParameterizedTypeName moduleList = ParameterizedTypeName.get(
+                ClassName.get(List.class),
+                ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteMap")));
+
+        // 生成 moduleList 参数
+        ParameterSpec moduleSpec = ParameterSpec.builder(moduleList, "moduleList").build();
+
+        // 生成 loadMap 方法
+        MethodSpec.Builder loadModuleSpec = MethodSpec.methodBuilder("loadModule")
+                .addAnnotation(Override.class)
+                .addModifiers(PUBLIC)
+                .addParameter(moduleSpec);
+
+        loadModuleSpec.addStatement("moduleList.add(new $L())", routeMapFileName);
+
+        String loadModuleClass = "BRouter$$RouteModule$$" + moduleName;
+
+
+        JavaFile.builder("com.aprz.brouter.routes",
+                TypeSpec.classBuilder(loadModuleClass)
+                        .addSuperinterface(ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteModule")))
+                        .addModifiers(PUBLIC)
+                        .addMethod(loadModuleSpec.build())
                         .build()
         ).build().writeTo(mFiler);
 
