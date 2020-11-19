@@ -37,6 +37,7 @@ public class BRouter {
     }
 
     public void navigate(Context context, String path) {
+        RouteStore.completion(path);
         Class<? extends Activity> targetClass = RouteStore.getRouteMap().get(path);
         if (targetClass != null && context != null) {
             Intent intent = new Intent(context, targetClass);

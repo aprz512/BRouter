@@ -103,8 +103,8 @@ public class RouterProcessor extends BaseProcessor {
 
         class M implements IRouteModule {
 
-            void loadModule(List<IRouteMap> moduleList) {
-                moduleList.add(xxx);
+            void loadModule(Map<String, IRouteMap> moduleMap) {
+                moduleMap.put(xxx, zzz);
             }
 
         }
@@ -172,13 +172,14 @@ public class RouterProcessor extends BaseProcessor {
 
 
         // 再生成一个类
-        // 生成一个 List<IRouteMap> moduleList
+        // 生成一个 Map<String, IRouteMap> moduleList
         ParameterizedTypeName moduleList = ParameterizedTypeName.get(
-                ClassName.get(List.class),
+                ClassName.get(Map.class),
+                ClassName.get(String.class),
                 ClassName.get(elementUtils.getTypeElement("com.aprz.brouter.api.IRouteMap")));
 
         // 生成 moduleList 参数
-        ParameterSpec moduleSpec = ParameterSpec.builder(moduleList, "moduleList").build();
+        ParameterSpec moduleSpec = ParameterSpec.builder(moduleList, "moduleMap").build();
 
         // 生成 loadMap 方法
         MethodSpec.Builder loadModuleSpec = MethodSpec.methodBuilder("loadModule")
@@ -186,7 +187,7 @@ public class RouterProcessor extends BaseProcessor {
                 .addModifiers(PUBLIC)
                 .addParameter(moduleSpec);
 
-        loadModuleSpec.addStatement("moduleList.add(new $L())", routeMapFileName);
+        loadModuleSpec.addStatement("moduleMap.put($S, new $L())", moduleName, routeMapFileName);
 
         String loadModuleClass = "BRouter$$RouteModule$$" + moduleName;
 
