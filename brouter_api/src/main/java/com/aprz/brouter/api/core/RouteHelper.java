@@ -42,7 +42,7 @@ public class RouteHelper {
         }
     }
 
-    public static void injectRouteByPlugin() {
+    public static void injectModuleByPlugin() {
         // 在这个方法里面生成下面这样的字节码
         // register(new BRouter$$Group$$xxx());
         // register(new BRouter$$Group$$yyy());
@@ -52,8 +52,8 @@ public class RouteHelper {
     /**
      * 纯粹是为了简化 asm 的编写
      */
-    private static void register(IRouteMap group) {
-        group.loadMap(RouteStore.getRouteMap());
+    private static void register(IRouteModule module) {
+        RouteStore.injectModule(module);
     }
 
 }

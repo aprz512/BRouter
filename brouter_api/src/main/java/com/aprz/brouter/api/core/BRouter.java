@@ -26,7 +26,7 @@ public class BRouter {
     public static void init(Application context, boolean registerByPlugin) {
         sContext = context;
         if (registerByPlugin) {
-            RouteHelper.injectRouteByPlugin();
+            RouteHelper.injectModuleByPlugin();
         } else {
             RouteHelper.loadRoute(context);
         }

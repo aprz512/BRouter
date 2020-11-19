@@ -301,7 +301,7 @@ public class RouteRegisterTransform extends Transform {
         public void visit(int version, int access, String name, String signature,
                           String superName, String[] interfaces) {
             super.visit(version, access, name, signature, superName, interfaces);
-            boolean implementation = Arrays.toString(interfaces).contains("com/aprz/brouter/api/IRouteGroup");
+            boolean implementation = Arrays.toString(interfaces).contains("com/aprz/brouter/api/IRouteModule");
 //            Log.e(TAG, "ScanClassVisitor - implementation - " + implementation);
             String className = name.replace("/", ".");
 //            Log.e(TAG, "ScanClassVisitor - className - " + className);
@@ -387,7 +387,7 @@ public class RouteRegisterTransform extends Transform {
                                          String signature, String[] exceptions) {
             MethodVisitor mv = super.visitMethod(access, name, desc, signature, exceptions);
             // 给指定的方法插入代码
-            if ("injectRouteByPlugin".equals(name)) {
+            if ("injectModuleByPlugin".equals(name)) {
                 mv = new RouteMethodVisitor(Opcodes.ASM5, mv);
             }
             return mv;
@@ -411,7 +411,7 @@ public class RouteRegisterTransform extends Transform {
                     mv.visitTypeInsn(NEW, className);
                     mv.visitInsn(DUP);
                     mv.visitMethodInsn(INVOKESPECIAL, className, "<init>", "()V", false);
-                    mv.visitMethodInsn(INVOKESTATIC, "com/aprz/brouter/api/core/RouteHelper", "register", "(Lcom/aprz/brouter/api/IRouteGroup;)V", false);
+                    mv.visitMethodInsn(INVOKESTATIC, "com/aprz/brouter/api/core/RouteHelper", "register", "(Lcom/aprz/brouter/api/IRouteModule;)V", false);
                 }
 
             }
