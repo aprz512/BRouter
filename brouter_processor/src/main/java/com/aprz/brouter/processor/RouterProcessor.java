@@ -9,12 +9,10 @@ import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.squareup.javapoet.WildcardTypeName;
 
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,9 +23,9 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
-import javax.tools.Diagnostic;
 
 import static com.aprz.brouter.processor.Constant.ACTIVITY;
+import static com.aprz.brouter.processor.Constant.NAVIGATION;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @AutoService(Processor.class)
@@ -124,18 +122,14 @@ public class RouterProcessor extends BaseProcessor {
     }
 
     private String buildMapClass(Set<? extends Element> routeElements) throws IOException {
-        TypeMirror type_Activity = elementUtils.getTypeElement(ACTIVITY).asType();
+        TypeMirror typeActivity = elementUtils.getTypeElement(ACTIVITY).asType();
+        TypeMirror typeNavigation = elementUtils.getTypeElement(NAVIGATION).asType();
 
-
-        // 生成一个 Map<String, Class<? extends Activity>> 类型，后面会用到
+        // 生成一个 Map<String, Navigation> 类型，后面会用到
         ParameterizedTypeName inputMapTypeOfGroup = ParameterizedTypeName.get(
                 ClassName.get(Map.class),
                 ClassName.get(String.class),
-                ParameterizedTypeName.get(
-                        ClassName.get(Class.class),
-                        WildcardTypeName.subtypeOf(ClassName.get(type_Activity))
-                )
-        );
+                ClassName.get(typeNavigation));
 
         // 生成 routeMap 参数
         ParameterSpec groupParamSpec = ParameterSpec.builder(inputMapTypeOfGroup, "routeMap").build();
@@ -151,8 +145,13 @@ public class RouterProcessor extends BaseProcessor {
             TypeMirror tm = element.asType();
             Route route = element.getAnnotation(Route.class);
 
-            if (types.isSubtype(tm, type_Activity)) {
-                loadIntoMethodBuilder.addStatement("routeMap.put($S, $T.class)", route.path(), TypeName.get(tm));
+            if (types.isSubtype(tm, typeActivity)) {
+                loadIntoMethodBuilder.addStatement("routeMap.put($S, new $L($S, $S, $T.class))",
+                        route.path(),
+                        TypeName.get(typeNavigation),
+                        route.path(),
+                        getModule(route.path()),
+                        TypeName.get(tm));
             }
 
         }
@@ -200,6 +199,19 @@ public class RouterProcessor extends BaseProcessor {
                         .build()
         ).build().writeTo(mFiler);
 
+    }
+
+    /**
+     * 要求跳转路径使用 二级结构，如：wallet/xxx
+     * 因为注解处理器没有做复杂的分组功能，所以，还要求一级路径名为 module 名字
+     *
+     * @return 返回一级路径名
+     */
+    private static String getModule(String path) {
+        if (!path.contains("/")) {
+            throw new IllegalStateException("路径格式不对：" + path);
+        }
+        return path.substring(0, path.indexOf("/"));
     }
 
 }

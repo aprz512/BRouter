@@ -1,27 +1,22 @@
 package com.aprz.brouter.api.core;
 
-import android.app.Activity;
-import android.webkit.HttpAuthHandler;
-
 import com.aprz.brouter.api.IRouteMap;
 import com.aprz.brouter.api.IRouteModule;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RouteStore {
 
-    private static Map<String, Class<? extends Activity>> routeMap = new HashMap<>();
+    private static Map<String, Navigation> routeMap = new HashMap<>();
     private static Map<String, IRouteMap> moduleMap = new HashMap<>();
 
     public static void injectModule(IRouteModule routeModule) {
         routeModule.loadModule(moduleMap);
     }
 
-    public static Map<String, Class<? extends Activity>> getRouteMap() {
-        return routeMap;
+    public static Navigation getNavigation(String path) {
+        return routeMap.get(path);
     }
 
     public static void completion(String path) {

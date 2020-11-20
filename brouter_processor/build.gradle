@@ -3,14 +3,21 @@ apply plugin: 'java'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.auto.service:auto-service:1.0-rc7'
+
     implementation project(':brouter_annotation')
+    implementation project(':component_api')
+
     implementation 'com.squareup:javapoet:1.13.0'
     implementation 'org.apache.commons:commons-lang3:3.11'
     implementation 'org.apache.commons:commons-collections4:4.4'
+
+    implementation 'com.google.auto.service:auto-service:1.0-rc7'
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
-    implementation project(':component_api')
+//    def incap = '0.3'// 当前最新
+//    compileOnly("net.ltgt.gradle.incap:incap:${incap}")
+//    annotationProcessor("net.ltgt.gradle.incap:incap-processor:${incap}")
+
 }
 
 tasks.withType(JavaCompile){
@@ -19,3 +26,4 @@ tasks.withType(JavaCompile){
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+

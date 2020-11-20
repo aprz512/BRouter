@@ -21,14 +21,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.navigate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BRouter.getInstance().navigate("wallet/main");
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "value");
+                BRouter.getInstance().path("wallet/main").params(bundle).navigate();
             }
         });
 
         findViewById(R.id.jump2Login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BRouter.getInstance().navigate("login/main");
+                BRouter.getInstance().path("login/main").navigate();
             }
         });
         //加载登录模块

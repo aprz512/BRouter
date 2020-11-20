@@ -1,11 +1,11 @@
 package com.aprz.brouter.api;
 
-import android.app.Activity;
+import com.aprz.brouter.api.core.Navigation;
 
 import java.util.Map;
 
 public interface IRouteMap {
 
-    void loadMap(Map<String, Class<? extends Activity>> routeMap);
+    void loadMap(Map<String, Navigation> routeMap);
 
 }

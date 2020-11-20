@@ -32,20 +32,11 @@ public class BRouter {
         }
     }
 
-    public void navigate(String path) {
-        navigate(sContext, path);
-    }
-
-    public void navigate(Context context, String path) {
+    public Navigation path(String path) {
         RouteStore.completion(path);
-        Class<? extends Activity> targetClass = RouteStore.getRouteMap().get(path);
-        if (targetClass != null && context != null) {
-            Intent intent = new Intent(context, targetClass);
-            if (!(context instanceof Activity)) {
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            }
-            context.startActivity(intent);
-        }
+        Navigation navigation = RouteStore.getNavigation(path);
+        navigation.setAppContext(sContext);
+        return navigation;
     }
 
 }
