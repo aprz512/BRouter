@@ -17,4 +17,10 @@ public interface ComponentConstants {
     public static final String JAVA_ARRAYLIST = "java.util.ArrayList";
     public static final String JAVA_HASHMAP = "java.util.HashMap";
     public static final String JAVA_HASHSET = "java.util.HashSet";
+    public static final String ANDROID_BUNDLE = "android.os.Bundle";
+
+    public static final String COMPONENT_MANAGER_CALL_CLASS_NAME = "com.aprz.component_impl.ComponentManager";
+    public static final String FRAGMENT_MANAGER_CALL_CLASS_NAME = "com.aprz.component_impl.fragment.FragmentManager";
+
+    public static final String FUNCTION_CLASS_NAME = "com.example.component_api.Function";
 }

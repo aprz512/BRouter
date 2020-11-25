@@ -1,0 +1,9 @@
+//统一管理依赖的版本
+ext {
+    android = [
+            compileSdkVersion: 29,
+            minSdkVersion    : 21,
+            targetSdkVersion : 29,
+            buildToolsVersion: "29.0.2"
+    ]
+}

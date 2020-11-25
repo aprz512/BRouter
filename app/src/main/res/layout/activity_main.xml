@@ -7,12 +7,14 @@
     tools:context=".MainActivity">
 
     <com.aprz.brouter.view.XFlowLayout
+        android:id="@+id/xflow_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:h_space="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:h_space="1dp"
         app:v_space="1dp">
+
         <Button
             android:id="@+id/navigate"
             android:layout_width="wrap_content"
@@ -55,7 +57,23 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registLogin" />
+
+        <Button
+            android:id="@+id/loadLoginFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="加载登录fragment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unregistLogin" />
     </com.aprz.brouter.view.XFlowLayout>
 
-
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#eeeeee"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xflow_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
