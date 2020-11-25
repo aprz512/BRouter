@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 // 找不到 id 是为啥
 // 检查META-INF和gradle-plugins是不是父子文件夹，as可能会给你优化成一个目录。
-apply plugin: 'brouter'
+//apply plugin: 'brouter'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "30.0.1"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.aprz.brouter"

@@ -1,21 +1,31 @@
 package com.aprz.component_impl;
 
+import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
+import com.aprz.brouter.annotation.FragmentAnno;
 import com.example.component_api.ComponentUtil;
+import com.example.component_api.Function;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ComponentManager {
 
-    private static final String TAG="ComponentManager";
+    private static final String TAG = "ComponentManager";
     /**
      * 单例对象
      */
     private static volatile ComponentManager instance;
+
+    public ComponentManager() {
+    }
 
     /**
      * 获取单例对象
@@ -51,17 +61,18 @@ public class ComponentManager {
         }
     }
 
-    public void unregister(@NonNull String host) {
+    public static void unregister(@NonNull String host) {
 
         IComponentLifecycle moduleApp = moduleApplicationMap.get(host);
         if (moduleApp == null) {
-            Log.i(TAG,"模块 '" + host + "' 卸载失败");
+            Log.i(TAG, "模块 '" + host + "' 卸载失败");
         } else {
+            Log.i(TAG, "模块 '" + host + "' 卸载成功");
             unregister(moduleApp);
         }
     }
 
-    private void unregister(IComponentLifecycle moduleApp) {
+    private static void unregister(IComponentLifecycle moduleApp) {
         moduleApplicationMap.remove(moduleApp.getName());
         moduleApp.onDestroy();
     }
