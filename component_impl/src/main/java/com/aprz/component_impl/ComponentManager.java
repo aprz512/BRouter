@@ -1,18 +1,11 @@
 package com.aprz.component_impl;
 
-import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.aprz.brouter.annotation.FragmentAnno;
 import com.example.component_api.ComponentUtil;
-import com.example.component_api.Function;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

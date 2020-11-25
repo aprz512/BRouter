@@ -49,7 +49,7 @@ public class FragmentManager {
     /**
      * @param flag
      * @param bundle
-     * @return 注意返回的Fragment要和LoginFragment继承的一直（androidx）
+     * @return 注意返回的Fragment要和LoginFragment继承的一致（androidx）
      */
     @Nullable
     @AnyThread
