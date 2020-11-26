@@ -65,4 +65,5 @@ dependencies {
     implementation project(path: ':brouter_api')
 
     api project(':component_base')
+    implementation project(path: ':module-login-export')
 }
