@@ -81,7 +81,9 @@ public class ComponentManager {
     private IComponentLifecycle findComponentApplication(String host) {
         IComponentLifecycle result = null;
         try {
-            // 先找正常的
+            /**
+             *找到注解生成的辅助类
+             */
             Class<?> clazz = Class.forName(ComponentUtil.genHostModuleApplicationClassName(host));
             result = (IComponentLifecycle) clazz.newInstance();
         } catch (Exception ignore) {
