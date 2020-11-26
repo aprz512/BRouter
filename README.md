@@ -12,6 +12,8 @@
 
 [组件路由懒加载](组件路由懒加载.md)
 
+[注解处理器](注解处理器要点.md)
+
 #### 项目运行
 - 因为有gradle插件，所以需要先将 `brouter_api` 的插件发布出来，然后才能使用
     点击 brouter_api -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
