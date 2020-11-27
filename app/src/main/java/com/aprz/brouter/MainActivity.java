@@ -3,6 +3,7 @@ package com.aprz.brouter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentCenter.getInstance().unregister("login");
-                ComponentManager.getInstance().unregister(ComponentConfig.ComponentLogin.NAME);
+                ComponentManager.unregister(ComponentConfig.ComponentLogin.NAME);
             }
         });
         //加载登录fragment

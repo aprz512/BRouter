@@ -18,6 +18,7 @@ public class LoginServiceImpl implements LoginService {
         return null;
     }
 
+
     @Override
     public boolean isUserNameValidate(String userName) {
         return userName.equals("peng");

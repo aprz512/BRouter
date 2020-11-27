@@ -1,3 +1,4 @@
+apply from: "${rootProject.rootDir}/config.gradle"
 apply plugin: 'com.android.application'
 // 找不到 id 是为啥
 // 检查META-INF和gradle-plugins是不是父子文件夹，as可能会给你优化成一个目录。
@@ -41,7 +42,9 @@ dependencies {
     implementation project(path: ':brouter_annotation')
     implementation project(path: ':brouter_api')
     runtimeOnly project(path: ':wallet')
-    runtimeOnly project(path: ':login')
+    if (!project.ext.isModuleDebug.toBoolean()) {
+        runtimeOnly project(path: ':login')
+    }
     annotationProcessor project(path: ':brouter_processor')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
