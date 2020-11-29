@@ -12,7 +12,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BRouter.init(this, true);
+        BRouter.init(this, false);
 
         Component.init(
                 BuildConfig.DEBUG,

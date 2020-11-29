@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class BRouter {
 
@@ -37,6 +39,21 @@ public class BRouter {
         Navigation navigation = RouteStore.getNavigation(path);
         navigation.setAppContext(sContext);
         return navigation;
+    }
+
+    public void inject(Activity activity) {
+        try {
+            Class<?> bind = Class.forName(activity.getClass().getCanonicalName() + "_Bind");
+            Constructor<?> constructor = bind.getConstructor(activity.getClass());
+            // 这里就已经赋值完成了
+            constructor.newInstance(activity);
+        } catch (ClassNotFoundException
+                | NoSuchMethodException
+                | IllegalAccessException
+                | InstantiationException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 }

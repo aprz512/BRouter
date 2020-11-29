@@ -1,12 +1,20 @@
+rootProject.name = "BRouter"
+
+
+include ':app'
 include ':wallet'
+include ':login'
+
+
 include ':brouter_api'
 include ':brouter_annotation'
 include ':brouter_processor'
-include ':app'
 include ':brouter_plugin'
-rootProject.name = "BRouter"
-include ':login'
+
+
 include ':component_impl'
 include ':component_base'
 include ':component_api'
+
+
 include ':module-login-export'

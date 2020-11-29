@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BRouter</string>
+    <string name="navigate_to_wallet_component">跳转到钱包组件</string>
 </resources>

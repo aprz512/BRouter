@@ -9,11 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.aprz.brouter.api.core.BRouter;
-import com.aprz.component_impl.Component;
 import com.aprz.component_impl.ComponentManager;
 import com.aprz.component_impl.fragment.FragmentCenter;
 import com.aprz.component_impl.fragment.FragmentManager;
-import com.example.component_api.ComponentConstants;
 import com.example.component_base.ComponentConfig;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         container = findViewById(R.id.fragmentContainer);
-        findViewById(R.id.navigate).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.navigate_to_wallet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("key", "value");
+                bundle.putInt("count", 30);
+                bundle.putString("message", "hello");
                 BRouter.getInstance().path("wallet/main").params(bundle).navigate();
             }
         });

@@ -6,17 +6,27 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.aprz.brouter.annotation.Bind;
 import com.aprz.brouter.annotation.Route;
+import com.aprz.brouter.api.core.BRouter;
 
 @Route(path = "wallet/main")
 public class WalletActivity extends AppCompatActivity {
 
+    @Bind
+    String message;
+
+    @Bind(key = "count")
+    int mCount;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BRouter.getInstance().inject(this);
+
         setContentView(R.layout.wallet_activity);
 
-        Toast.makeText(this, getIntent().getExtras().getString("key"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "message = " + message + ", mCount = " + mCount, Toast.LENGTH_SHORT).show();
     }
 
 }

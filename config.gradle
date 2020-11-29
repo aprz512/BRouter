@@ -1,4 +1,4 @@
 project.ext {
     //是否允许module单独调试
-    isModuleDebug = true
+    isModuleDebug = false
 }
