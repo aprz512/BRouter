@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">aprz_login</string>
+
+    <!--    general-->
+    <string name="login_virgil_securiry_copyright">Copyright © 2015–2018 Virgil Security Inc.</string>
+
+    <!--    login-->
+    <string name="login_app_name">aprz_login</string>
+    <string name="login_id">Create ID (e.g. Alice_123)</string>
+    <string name="login_signup">SignUp</string>
+    <string name="login_password">Password</string>
+    <string name="login_signin">SignIn</string>
+    <string name="login_virgil_firebase_messenger">Virgil-Firebase messenger</string>
+    <string name="login_please_enter_creds">Please enter your credentials</string>
+    <string name="login_no_cards_found">No cards was found</string>
+    <string name="login_new_private_key">Generate new private</string>
+    <string name="login_new_private_key_generation">There\'s no private key for entered identity on this device.
+        \nGenerate new one? (You
+        won\'t be able to decrypt old messages on this device)</string>
 </resources>

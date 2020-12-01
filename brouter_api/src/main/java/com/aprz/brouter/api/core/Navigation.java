@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+
+import androidx.annotation.Nullable;
 
 /**
  * 用于跳转的类
@@ -14,11 +17,10 @@ import android.os.Bundle;
 public class Navigation {
 
     private Context appContext;
-    private Bundle params;
+    private Bundle mBundle;
     private String path;
     private String group;
     private Class<? extends Activity> targetActivityClass;
-
     public void setAppContext(Context appContext) {
         this.appContext = appContext;
     }
@@ -27,14 +29,16 @@ public class Navigation {
         this.path = path;
         this.group = group;
         this.targetActivityClass = targetActivityClass;
+        mBundle=new Bundle();
     }
-
-    public Navigation params(Bundle bundle) {
-        params = new Bundle();
-        params.putAll(bundle);
+    public Navigation withParcelable(@Nullable String key, @Nullable Parcelable value) {
+        mBundle.putParcelable(key, value);
         return this;
     }
-
+    public Navigation params(Bundle bundle) {
+        mBundle.putAll(bundle);
+        return this;
+    }
     public void navigate() {
         navigate(appContext);
     }
@@ -43,8 +47,8 @@ public class Navigation {
         Navigation navigation = RouteStore.getNavigation(path);
         if (navigation != null && context != null) {
             Intent intent = new Intent(context, targetActivityClass);
-            if (params != null) {
-                intent.putExtras(params);
+            if (mBundle != null) {
+                intent.putExtras(mBundle);
             }
             if (!(context instanceof Activity)) {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -1,9 +1,11 @@
 apply from: "${rootProject.rootDir}/config.gradle"
+apply from: "${rootProject.rootDir}/version.gradle"
 if (project.ext.isModuleDebug.toBoolean()) {
     apply plugin: 'com.android.application'
 } else {
     apply plugin: 'com.android.library'
 }
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -24,7 +26,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [BROUTER_MODULE_NAME: project.getName(),
-                             "HOST"           : "login",
+                             "HOST"             : "login",
                 ]
             }
         }
@@ -48,6 +50,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
 }
 
@@ -59,11 +65,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation "com.android.support:design:${rootProject.ext.supportLibrary}"
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:${rootProject.ext.butterKnife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterKnife}"
+
+    // Firebase
 
     implementation project(path: ':brouter_annotation')
     annotationProcessor project(path: ':brouter_processor')
     implementation project(path: ':brouter_api')
 
+
     api project(':component_base')
     implementation project(path: ':module-login-export')
+
+
 }
