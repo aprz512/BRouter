@@ -5,8 +5,10 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.aprz.brouter.annotation.Route;
+import com.aprz.user.UserManager;
 import com.example.module_login_export.service.LoginResponseBean;
 import com.example.module_login_export.service.LoginService;
+import com.example.module_login_export.service.UserInfoBean;
 
 @Route(path = "login/loginServiceImpl")
 public class LoginServiceImpl implements LoginService {
@@ -23,6 +25,7 @@ public class LoginServiceImpl implements LoginService {
         if (userName.equals("admin") && psw.equals("admin")) {
             responseBean.setUserName(userName);
             responseBean.setSuccess(true);
+            UserManager.getInstance().updateUser(new UserInfoBean(responseBean.getUserName(), "没什么可说的"));
             return responseBean;
         }
         responseBean.setErrorMsg("无效的用户名或密码");

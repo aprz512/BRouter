@@ -36,6 +36,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/navigate" />
 
+        <Button
+            android:id="@+id/jump2Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转个人信息页"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/navigate" />
+
 
         <Button
             android:id="@+id/registLogin"

@@ -20,7 +20,6 @@ import com.example.module_login_export.service.UserInfoBean;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import butterknife.BindView;
 import service.LoginServiceImpl;
 
 @FragmentAnno(value = "login/loginFragment")
@@ -65,7 +64,7 @@ public class LoginFragment extends Fragment {
                         if (response.isSuccess()) {
                             //登录成功，跳转到个人信息页面
                             UserInfoBean bean = new UserInfoBean(response.getUserName(), "没什么可说的");
-                            BRouter.getInstance().path("login/profile").withParcelable("userInfo", bean).navigate();
+                            BRouter.getInstance().path("login/profile").withParcelable("userInfo", bean).navigate(getContext());
                         } else {
                             //提示错误信息
                             Toast.makeText(getContext(), response.getErrorMsg(), Toast.LENGTH_SHORT).show();

@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
                 BRouter.getInstance().path("login/main").navigate();
             }
         });
+
+        findViewById(R.id.jump2Profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BRouter.getInstance().path("login/profile").navigate();
+            }
+        });
+
         //加载登录模块
         findViewById(R.id.registLogin).setOnClickListener(new View.OnClickListener() {
             @Override

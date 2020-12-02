@@ -70,8 +70,8 @@ dependencies {
     implementation "com.jakewharton:butterknife:${rootProject.ext.butterKnife}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterKnife}"
 
-    // Firebase
-
+    //gson
+    implementation "com.google.code.gson:gson:${rootProject.ext.gson}"
     implementation project(path: ':brouter_annotation')
     annotationProcessor project(path: ':brouter_processor')
     implementation project(path: ':brouter_api')

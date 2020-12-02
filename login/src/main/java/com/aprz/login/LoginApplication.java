@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import com.aprz.brouter.annotation.ComponentAppAnno;
 import com.aprz.component_impl.IComponentLifecycle;
 
+import service.AppService;
+
 /**
  * 组件中用户和控制中心打交道的类
  * <p>
@@ -24,7 +26,7 @@ public class LoginApplication implements IComponentLifecycle {
         /**
          * 得知自己被加载后，可以获取一些主程序的信息，比如版本信息，包名等等
          */
-
+        AppService.getInstance().initContext(app.getApplicationContext());
     }
 
     @Override
