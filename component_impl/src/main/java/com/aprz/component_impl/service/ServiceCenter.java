@@ -10,11 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 管理模块中Fragment的加载和卸载
+ * 管理所有模块的服务
  * <p>
  * 使用场景：
- * 此时你希望注册模块A中的所有fragment，让其暴露给其他模块调用，则调用{@link #register(IComponentHostFragment)}
- * 卸载模块中的fragment则调用{@link #unregister(String)}
+ * 比如UserModule和LoginModule
+ * 模块名host为key,对应的辅助类，如LoginServiceGenerated为value
+ * <p>
+ * 卸载模块中的fragment则调用{@link #unregister(String host)}
  */
 public class ServiceCenter {
     private Map<String, IComponentService> moduleFragmentMap = new HashMap<>();

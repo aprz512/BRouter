@@ -14,6 +14,11 @@ import java.util.Map;
 
 /**
  * @author jacky.peng
+ * 管理所有的服务
+ * key-服务的class,整个app唯一
+ * value-懒加载服务实例的callable
+ * <p>
+ * 每一种服务都是全局唯一，如UserService,就算有很多实现类，最后持有的是注释处理器生成的最新实例
  */
 public class ServiceManager {
     private ServiceManager() {
