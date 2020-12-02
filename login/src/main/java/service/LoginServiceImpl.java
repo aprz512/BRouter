@@ -12,7 +12,6 @@ import com.example.module_login_export.service.UserInfoBean;
 
 @Route(path = "login/loginServiceImpl")
 public class LoginServiceImpl implements LoginService {
-    Context mContext;
 
     @Override
     public LoginResponseBean login(String userName, String psw) {
@@ -38,8 +37,4 @@ public class LoginServiceImpl implements LoginService {
         return userName.equals("admin");
     }
 
-    @Override
-    public void init(Context context) {
-        this.mContext = context;
-    }
 }

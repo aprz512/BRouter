@@ -54,4 +54,6 @@ dependencies {
 
     api project(':component_impl')
     api project(':component_base')
+
+    api project(':module-login-export')
 }

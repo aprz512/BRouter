@@ -2,9 +2,7 @@ package com.example.module_login_export.service;
 
 import androidx.annotation.Nullable;
 
-import com.aprz.brouter.api.IProvider;
-
-public interface UserService extends IProvider {
+public interface UserService {
 
     @Nullable
     public UserInfoBean getUserInfoBean();

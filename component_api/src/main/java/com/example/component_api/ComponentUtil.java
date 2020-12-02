@@ -19,8 +19,14 @@ public class ComponentUtil {
      */
     public static final String Fragment = "FragmentGenerated";
 
+    /**
+     * 生成的文件名称的后缀
+     */
+    public static final String SERVICE = "ServiceGenerated";
+
     public static final String COMPONENT_APPLICATION_IMPL_CLASS_NAME = IMPL_OUTPUT_PKG  + DOT + "ComponentApplicationImpl";
     public static final String FRAGMENT_IMPL_CLASS_NAME = IMPL_OUTPUT_PKG + DOT + "fragment" + DOT + "ComponentFragmentImpl";;
+    public static final String SERVICE_IMPL_CLASS_NAME = IMPL_OUTPUT_PKG + DOT + "service" + DOT + "IComponentServiceDefaultImpl";
 
     public static String genHostModuleApplicationClassName(String host) {
         return IMPL_OUTPUT_PKG + DOT + "application" + DOT + firstCharUpperCase(host) + COMPONENT_APPLICATION_SUFFIX;
@@ -28,6 +34,10 @@ public class ComponentUtil {
 
     public static String genHostFragmentClassName(String host) {
         return IMPL_OUTPUT_PKG + DOT + "fragment" + DOT + firstCharUpperCase(host) + Fragment;
+    }
+
+    public static String genHostServiceClassName(String host) {
+        return IMPL_OUTPUT_PKG + DOT + "service" + DOT + firstCharUpperCase(host) + SERVICE;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.aprz.component_impl.fragment;
+package com.aprz.component_impl.service;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;

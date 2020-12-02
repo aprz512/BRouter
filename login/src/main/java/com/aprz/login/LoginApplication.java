@@ -17,6 +17,15 @@ import service.AppService;
  * 问题2：如何正确找到每个组件中的这种类(确保唯一性和正确性)   用注解
  * <p>
  * 通过注解来扫描，找到每个模块中的类似于stub的类
+ * <p>
+ * 模块被加载意味着什么？
+ * <p>
+ * 1.注解处理器会生成一个xxApplicationGenerated的实例
+ * 2.该实例会创建并持有LoginApplication的实例引用
+ * 3.调用Application的onCreate()
+ * 4.辅助类会主动注册模块中相关的服务，如{@link com.example.module_login_export.service.UserService}
+ * <p>
+ * 此时，模块中的服务已经注册，其他客户端可以通过服务中心去获取
  */
 @ComponentAppAnno
 public class LoginApplication implements IComponentLifecycle {

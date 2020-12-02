@@ -3,19 +3,20 @@ package com.aprz.brouter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aprz.brouter.api.core.BRouter;
-import com.aprz.component_impl.Component;
 import com.aprz.component_impl.ComponentManager;
 import com.aprz.component_impl.fragment.FragmentCenter;
 import com.aprz.component_impl.fragment.FragmentManager;
-import com.example.component_api.ComponentConstants;
+import com.aprz.component_impl.service.ServiceManager;
 import com.example.component_base.ComponentConfig;
+import com.example.module_login_export.service.UserInfoBean;
+import com.example.module_login_export.service.UserService;
 
 public class MainActivity extends AppCompatActivity {
     FrameLayout container;
@@ -75,6 +76,24 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "can not find path login/loginFragment", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
+
+
+        //根据用户的登录信息，显示对应UI
+        UserService userService = ServiceManager.get(UserService.class);
+        if (userService != null) {
+            UserInfoBean userInfoBean = userService.getUserInfoBean();
+            if (userInfoBean != null) {
+                showUserWelcomeView(userInfoBean);
+            }
+        }
+    }
+
+    private void showUserWelcomeView(UserInfoBean userInfoBean) {
+        TextView tvUserInfo = findViewById(R.id.user_info);
+        tvUserInfo.setVisibility(View.VISIBLE);
+        String user_info = "Hello," + userInfoBean.getName() + "\n" + "描述信息:" + userInfoBean.getDesc();
+        tvUserInfo.setText(user_info);
     }
 }

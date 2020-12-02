@@ -21,6 +21,11 @@ public interface ComponentConstants {
 
     public static final String COMPONENT_MANAGER_CALL_CLASS_NAME = "com.aprz.component_impl.ComponentManager";
     public static final String FRAGMENT_MANAGER_CALL_CLASS_NAME = "com.aprz.component_impl.fragment.FragmentManager";
+    public static final String SERVICE_MANAGER_CALL_CLASS_NAME = "com.aprz.component_impl.service.ServiceManager";
+    public static final String CALLABLE_CLASS_NAME = "com.aprz.component_impl.Callable";
+    public static final String SINGLETON_CALLABLE_CLASS_NAME = "com.aprz.component_impl.SingletonCallable";
+
+    public static final String CENTER_SERVICE_CLASS_NAME = "com.aprz.component_impl.service.ServiceCenter";
 
     public static final String FUNCTION_CLASS_NAME = "com.example.component_api.Function";
 }

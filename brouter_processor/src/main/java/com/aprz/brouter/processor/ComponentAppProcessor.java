@@ -34,9 +34,12 @@ import javax.lang.model.type.TypeMirror;
 @AutoService(Processor.class)
 @SupportedAnnotationTypes({"com.aprz.brouter.annotation.ComponentAppAnno"})
 public class ComponentAppProcessor extends BaseHostProcessor {
+    private TypeElement centerServiceTypeElement;
+
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        centerServiceTypeElement = elementUtils.getTypeElement(ComponentConstants.CENTER_SERVICE_CLASS_NAME);
     }
 
     @Override
@@ -104,6 +107,7 @@ public class ComponentAppProcessor extends BaseHostProcessor {
                 .addParameter(parameterSpec)
                 .addModifiers(Modifier.PUBLIC);
         methodSpecBuilder.addStatement("super.onCreate(application)");
+        methodSpecBuilder.addStatement("$T.getInstance().register(getName())", centerServiceTypeElement);
         return methodSpecBuilder.build();
     }
 
@@ -115,6 +119,8 @@ public class ComponentAppProcessor extends BaseHostProcessor {
                 .addModifiers(Modifier.PUBLIC);
 
         methodSpecBuilder.addStatement("super.onDestroy()");
+
+        methodSpecBuilder.addStatement("$T.getInstance().unregister(getName())", centerServiceTypeElement);
         methodSpecBuilder.addComment("清空缓存");
         return methodSpecBuilder.build();
     }
