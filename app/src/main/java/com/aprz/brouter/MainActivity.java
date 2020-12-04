@@ -2,6 +2,7 @@ package com.aprz.brouter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +16,13 @@ import com.aprz.component_impl.fragment.FragmentCenter;
 import com.aprz.component_impl.fragment.FragmentManager;
 import com.aprz.component_impl.service.ServiceManager;
 import com.example.component_base.ComponentConfig;
+import com.example.component_base.events.LogoutEvent;
 import com.example.module_login_export.service.UserInfoBean;
 import com.example.module_login_export.service.UserService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends AppCompatActivity {
     FrameLayout container;
@@ -82,6 +88,23 @@ public class MainActivity extends AppCompatActivity {
 
         //根据用户的登录信息，显示对应UI
         UserService userService = ServiceManager.get(UserService.class);
+        UserService.logoutEvent.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    hideUserWelcomeView();
+                }
+            }
+        });
+
+        UserService.loginEvent.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    showUserWelcomeView(userService.getUserInfoBean());
+                }
+            }
+        });
         if (userService != null) {
             UserInfoBean userInfoBean = userService.getUserInfoBean();
             if (userInfoBean != null) {
@@ -90,10 +113,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void hideUserWelcomeView() {
+        TextView tvUserInfo = findViewById(R.id.user_info);
+        tvUserInfo.setVisibility(View.GONE);
+    }
+
     private void showUserWelcomeView(UserInfoBean userInfoBean) {
         TextView tvUserInfo = findViewById(R.id.user_info);
         tvUserInfo.setVisibility(View.VISIBLE);
         String user_info = "Hello," + userInfoBean.getName() + "\n" + "描述信息:" + userInfoBean.getDesc();
         tvUserInfo.setText(user_info);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        if (event.getStatus() == 1) {
+            //登出成功
+        }
+    }
+
+    ;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 }

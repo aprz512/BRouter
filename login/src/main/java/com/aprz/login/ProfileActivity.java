@@ -8,7 +8,13 @@ import android.widget.TextView;
 
 import com.aprz.brouter.annotation.Route;
 import com.aprz.user.UserManager;
+import com.example.component_base.events.LogoutEvent;
 import com.example.module_login_export.service.UserInfoBean;
+import com.example.module_login_export.service.UserService;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Calendar;
 
 /**
  * 个人信息页
@@ -47,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (flag) {
                     userInfoBean = null;
                     refreshUI();
+                    UserService.logoutEvent.setValue(true);
                 }
             }
         });

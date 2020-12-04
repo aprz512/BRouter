@@ -32,4 +32,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     api project(':component_impl')
+    //其他的业务库需要使用EvenBus
+    api "org.greenrobot:eventbus:${rootProject.ext.eventBus}"
 }

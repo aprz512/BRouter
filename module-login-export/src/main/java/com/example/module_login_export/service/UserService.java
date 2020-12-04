@@ -1,12 +1,16 @@
 package com.example.module_login_export.service;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 
 public interface UserService {
+    MutableLiveData<Boolean> logoutEvent = new MutableLiveData<>();
+    MutableLiveData<Boolean> loginEvent = new MutableLiveData<>();
+
 
     @Nullable
-    public UserInfoBean getUserInfoBean();
+     UserInfoBean getUserInfoBean();
 
-    public boolean isUserInfoValidate();
+     boolean isUserInfoValidate();
 
 }

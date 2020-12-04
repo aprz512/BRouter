@@ -9,6 +9,7 @@ import com.aprz.user.UserManager;
 import com.example.module_login_export.service.LoginResponseBean;
 import com.example.module_login_export.service.LoginService;
 import com.example.module_login_export.service.UserInfoBean;
+import com.example.module_login_export.service.UserService;
 
 @Route(path = "login/loginServiceImpl")
 public class LoginServiceImpl implements LoginService {
@@ -25,6 +26,7 @@ public class LoginServiceImpl implements LoginService {
             responseBean.setUserName(userName);
             responseBean.setSuccess(true);
             UserManager.getInstance().updateUser(new UserInfoBean(responseBean.getUserName(), "没什么可说的"));
+            UserService.loginEvent.setValue(true);
             return responseBean;
         }
         responseBean.setErrorMsg("无效的用户名或密码");
