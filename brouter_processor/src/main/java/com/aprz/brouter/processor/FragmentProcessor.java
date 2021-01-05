@@ -1,6 +1,5 @@
 package com.aprz.brouter.processor;
 
-import com.aprz.brouter.annotation.ComponentAppAnno;
 import com.aprz.brouter.annotation.FragmentAnno;
 import com.example.component_api.ComponentConstants;
 import com.example.component_api.ComponentUtil;
@@ -31,7 +30,6 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.type.TypeMirror;
 
 /**
  * 用于Fragment生命周期注解

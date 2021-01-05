@@ -1,3 +1,2 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aprz.brouter.api">
+<manifest package="com.aprz.brouter.api">
 </manifest>

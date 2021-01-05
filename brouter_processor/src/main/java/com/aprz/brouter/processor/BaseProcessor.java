@@ -87,4 +87,9 @@ public abstract class BaseProcessor extends AbstractProcessor {
         return SourceVersion.latestSupported();
     }
 
+
+    public TypeElement typeElement(CharSequence sequence) {
+        return elementUtils.getTypeElement(sequence);
+    }
+
 }

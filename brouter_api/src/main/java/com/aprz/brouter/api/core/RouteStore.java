@@ -16,16 +16,22 @@ public class RouteStore {
     }
 
     public static Navigation getNavigation(String path) {
-        return routeMap.get(path);
+        Navigation navigation = routeMap.get(path);
+        if (navigation == null) {
+            navigation = new Navigation(path, getModule(path), null);
+        }
+        return navigation;
     }
 
     public static void completion(String path) {
-        if(routeMap.get(path) != null) {
+        if (routeMap.get(path) != null) {
             return;
         }
         String module = getModule(path);
         IRouteMap moduleRouteMap = moduleMap.get(module);
-        moduleRouteMap.loadMap(routeMap);
+        if (moduleRouteMap != null) {
+            moduleRouteMap.loadMap(routeMap);
+        }
     }
 
     /**

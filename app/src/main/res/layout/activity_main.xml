@@ -67,6 +67,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/unregistLogin" />
+
+        <Button
+            android:id="@+id/btn_test_interceptors"
+            android:text="拦截器测试"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </com.aprz.brouter.view.XFlowLayout>
 
     <FrameLayout

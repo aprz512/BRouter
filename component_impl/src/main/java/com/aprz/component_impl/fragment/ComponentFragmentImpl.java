@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.aprz.component_impl.IComponentHostFragment;
-import com.aprz.component_impl.IComponentLifecycle;
 
 import java.util.Collections;
 import java.util.Set;

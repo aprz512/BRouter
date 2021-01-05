@@ -1,12 +1,12 @@
 package com.aprz.brouter;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.component_impl.ComponentManager;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("count", 30);
                 bundle.putString("message", "hello");
+                bundle.putLong("userId", 9527);
                 BRouter.getInstance().path("wallet/main").params(bundle).navigate();
             }
         });
@@ -65,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "can not find path login/loginFragment", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        findViewById(R.id.btn_test_interceptors).setOnClickListener((v) -> {
+            BRouter.getInstance().path("xxx/404").navigate(this);
         });
     }
 }

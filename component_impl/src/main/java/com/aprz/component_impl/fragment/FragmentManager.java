@@ -1,7 +1,6 @@
 package com.aprz.component_impl.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.AnyThread;
 import androidx.annotation.NonNull;
@@ -9,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.aprz.brouter.annotation.FragmentAnno;
-import com.aprz.component_impl.IComponentLifecycle;
 import com.example.component_api.Function;
 
 import java.util.Collections;

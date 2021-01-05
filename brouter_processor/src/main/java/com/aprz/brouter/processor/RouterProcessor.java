@@ -163,7 +163,7 @@ public class RouterProcessor extends BaseProcessor {
                         .addModifiers(PUBLIC)
                         .addMethod(loadIntoMethodBuilder.build())
                         .build()
-        ).build().writeTo(mFiler);
+        ).indent("    ").build().writeTo(mFiler);
         return routeMapFileName;
     }
 
@@ -197,7 +197,7 @@ public class RouterProcessor extends BaseProcessor {
                         .addModifiers(PUBLIC)
                         .addMethod(loadModuleSpec.build())
                         .build()
-        ).build().writeTo(mFiler);
+        ).indent("    ").build().writeTo(mFiler);
 
     }
 

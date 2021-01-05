@@ -20,7 +20,6 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 
 import static javax.lang.model.element.Modifier.PUBLIC;
 
@@ -110,6 +109,7 @@ public class BindProcessor extends BaseProcessor {
 
         try {
             JavaFile.builder(packageName, classBuilder.addModifiers(PUBLIC).build())
+                    .indent("    ")
                     .build()
                     .writeTo(mFiler);
         } catch (IOException e) {

@@ -3,7 +3,6 @@ package com.aprz.brouter.api.core;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.aprz.brouter.api.IRouteMap;
 import com.aprz.brouter.api.IRouteModule;
 import com.aprz.brouter.api.util.ClassUtils;
 

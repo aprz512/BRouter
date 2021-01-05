@@ -15,8 +15,8 @@ dependencies {
     implementation 'org.ow2.asm:asm-commons:7.1'
 }
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+sourceCompatibility = "8"
+targetCompatibility = "8"
 
 sourceSets {
     main {

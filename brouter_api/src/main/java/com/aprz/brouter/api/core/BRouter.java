@@ -34,6 +34,14 @@ public class BRouter {
         }
     }
 
+    public static Application application() {
+        return (Application) sContext;
+    }
+
+    public static Context context() {
+        return sContext;
+    }
+
     public Navigation path(String path) {
         RouteStore.completion(path);
         Navigation navigation = RouteStore.getNavigation(path);
