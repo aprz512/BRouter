@@ -29,4 +29,10 @@ public class Constant {
     public static final String DEGRADE_HELPER = "com.aprz.brouter.api.degrade.DegradeHelper";
 
 
+    public static final String SERVICE_PACKAGE_NAME = "com.aprz.brouter.services";
+    public static final String SERVICE_CLASS_PREFIX = "BRouter$$Service$$";
+    public static final String SERVICE_MODULE = "com.aprz.brouter.api.service.IModuleService";
+    public static final String SERVICE_HELPER = "com.aprz.brouter.api.service.ServiceHelper";
+
+
 }

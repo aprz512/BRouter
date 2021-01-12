@@ -5,8 +5,6 @@ import android.content.Context;
 
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.brouter.api.module.ModuleHelper;
-import com.aprz.component_impl.Component;
-import com.aprz.component_impl.Config;
 
 public class App extends Application {
 
@@ -16,10 +14,7 @@ public class App extends Application {
         BRouter.init(this, false);
         ModuleHelper.register("app");
         ModuleHelper.register("wallet");
-
-        Component.init(
-                BuildConfig.DEBUG,
-                Config.with(this).build());
+        ModuleHelper.register("login");
     }
 
     @Override

@@ -1,0 +1,108 @@
+apply plugin: 'com.android.component'
+
+component {
+
+    //注意：下面使用到的模块命等同于 setting 中申明的模块名，严格遵守规范
+
+    //申明插件的作用域，用于有 include 和 exclude
+    //生效的模块会自动添加组件依赖 core，可使用 component(:{projectName}) 使用其他组件提供的sdk，同时可在 componentSdks 中配置自己模块暴露的sdk
+//    exclude 'libraryWithoutPlugin', 'component-core'
+
+//  上述 语句等价于下面语句
+//    include ':app','library','libraryKotlin','debugModule'
+
+    // 组件工程与壳工程才需要应用这个插件，其他的工程不需要
+    include ':login', ':wallet', ':app'
+
+
+    sdk {
+
+        //编译版本
+        compileSdkVersion 27
+
+        //java编译版本
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        configuration {
+
+            'login' {
+                groupId 'com.aprz.login'
+                artifactId 'sdk'
+                dependencies {
+//                    implementation project(path: ':brouter_api')
+                }
+            }
+
+            'wallet' {
+                groupId 'com.aprz.wallet'
+                artifactId 'sdk'
+                dependencies {
+                }
+            }
+        }
+    }
+
+    //  -------- 注释 -------
+    // 这里似乎是 micro-module 的东西，不需要
+
+
+//    pin {
+//        configuration {
+//            'pins' {
+//                codeCheckEnabled true
+//                //参与编译的模块
+//                include ':p_base',':p_common',":p_home"
+//                //对外把暴露的模块
+//                export ':main'
+//            }
+//        }
+//    }
+
+    //  -------- 注释 -------
+    // 这里暂时不采用该插件自带的组件单独运行功能，而是自己搞一个
+    // 其实很简单，自己新建一个壳工程就好了，把要调试的组件依赖一下
+
+    //组件调试声明
+//    debug {
+//
+//        //调试模块，随意在当前项目新建一个module用于调试即可
+//        targetModuleName 'debugModule'
+//
+//        //申明调试模块运行时链接组件的资源，表明运行 debugModule 时使用目录资源
+//        targetDebugName 'library'
+//
+//        configuration {
+//
+//            'library' {
+//                dependencies {
+//                    //只支持 implementation，足够了
+//                    implementation component(':library')
+//                }
+//            }
+//
+//            'libraryKotlin' {
+//                dependencies {
+//                    implementation component(':libraryKotlin')
+//                }
+//            }
+//
+//            'libraryWithoutPlugin' {
+//                dependencies {
+//                    implementation project(':libraryWithoutPlugin')
+//                }
+//            }
+//
+//            'customDebug' {
+//                dependencies {
+//                    implementation component(':library')
+//                    implementation component(':libraryKotlin')
+//                }
+//            }
+//
+//        }
+//    }
+}
+

@@ -92,6 +92,7 @@ public class ModuleProcessor extends BaseProcessor {
         methodSpecBuilder.addStatement("this.module.onCreate(application)");
         methodSpecBuilder.addStatement("$T.addModuleInterceptor($S)", typeElement(Constant.INTERCEPTOR_HELPER), moduleName);
         methodSpecBuilder.addStatement("$T.addModuleDegrade($S)", typeElement(Constant.DEGRADE_HELPER), moduleName);
+        methodSpecBuilder.addStatement("$T.addModuleService($S)", typeElement(Constant.SERVICE_HELPER), moduleName);
         return methodSpecBuilder.build();
     }
 

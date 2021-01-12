@@ -10,6 +10,6 @@ public interface IModuleService {
     /**
      * 返回module里面的所有服务
      */
-    Map<String, IRouteService> services();
+    Map<String, Object> services();
 
 }

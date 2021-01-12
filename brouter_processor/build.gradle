@@ -5,7 +5,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':brouter_annotation')
-    implementation project(':component_api')
+//    implementation project(':component_api')
 
     implementation 'com.squareup:javapoet:1.13.0'
     implementation 'org.apache.commons:commons-lang3:3.11'

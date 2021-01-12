@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.aprz.brouter.annotation.Bind;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.brouter.api.core.BRouter;
+import com.aprz.brouter.api.service.ServiceHelper;
+import com.aprz.login.sdk.IUserService;
+import com.aprz.login.sdk.User;
 
 @Route(path = Constants.RoutePath.WALLET_ACTIVITY)
 public class WalletActivity extends AppCompatActivity {
@@ -27,13 +30,17 @@ public class WalletActivity extends AppCompatActivity {
 
         setContentView(R.layout.wallet_activity);
 
-        Toast.makeText(this, "message = " + message + ", mCount = " + mCount, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "message = " + message + ", mCount = " + mCount, Toast.LENGTH_SHORT).show();
+//
+//        new Handler().postDelayed(() -> {
+//            Toast.makeText(this, "哎呀，我崩溃了", Toast.LENGTH_SHORT).show();
+//            CrashMonitor.pageCrashed(Constants.RoutePath.WALLET_ACTIVITY);
+//            finish();
+//        }, 3000L);
 
-        new Handler().postDelayed(() -> {
-            Toast.makeText(this, "哎呀，我崩溃了", Toast.LENGTH_SHORT).show();
-            CrashMonitor.pageCrashed(Constants.RoutePath.WALLET_ACTIVITY);
-            finish();
-        }, 3000L);
+        IUserService userService = ServiceHelper.getService(IUserService.NAME);
+        User userInfo = userService.getUserInfo();
+        Toast.makeText(this, "用户登录状态：" + userInfo.toString(), Toast.LENGTH_SHORT).show();
     }
 
 }

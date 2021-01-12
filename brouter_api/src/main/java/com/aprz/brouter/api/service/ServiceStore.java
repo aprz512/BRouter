@@ -5,13 +5,14 @@ import java.util.Map;
 
 public class ServiceStore {
 
-    private static Map<String, IRouteService> serviceMap = new HashMap<>(32);
+    private static final Map<String, Object> serviceMap = new HashMap<>(32);
 
-    public static IRouteService getService(String name) {
-        return serviceMap.get(name);
+    @SuppressWarnings("unchecked")
+    public static <T> T getService(String name) {
+        return (T) serviceMap.get(name);
     }
 
-    public static void putService(String name, IRouteService service) {
+    public static void putService(String name, Object service) {
         serviceMap.put(name, service);
     }
 

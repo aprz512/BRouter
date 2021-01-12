@@ -14,11 +14,15 @@ public class ServiceHelper {
 
     public static void addModuleService(String moduleName) {
         IModuleService moduleService = findModuleService(moduleName);
-        Map<String, IRouteService> services = moduleService.services();
-        Set<Map.Entry<String, IRouteService>> entries = services.entrySet();
-        for (Map.Entry<String, IRouteService> entry : entries) {
+        Map<String, Object> services = moduleService.services();
+        Set<Map.Entry<String, Object>> entries = services.entrySet();
+        for (Map.Entry<String, Object> entry : entries) {
             ServiceStore.putService(entry.getKey(), entry.getValue());
         }
+    }
+
+    public static <T> T getService(String serviceName) {
+        return ServiceStore.getService(serviceName);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,7 +30,7 @@ public class ServiceHelper {
     private static IModuleService findModuleService(String module) {
         try {
             Class<IModuleService> degradeClass =
-                    (Class<IModuleService>) Class.forName("com.aprz.brouter.degrades.BRouter$$Service$$" + module);
+                    (Class<IModuleService>) Class.forName("com.aprz.brouter.services.BRouter$$Service$$" + module);
             return degradeClass.newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ignore) {
             Log.e(TAG, "没有在 module 内部找到服务: " + module);
@@ -38,7 +42,7 @@ public class ServiceHelper {
     static class EmptyModuleService implements IModuleService {
 
         @Override
-        public Map<String, IRouteService> services() {
+        public Map<String, Object> services() {
             return new HashMap<>(0);
         }
     }

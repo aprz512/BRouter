@@ -1,6 +1,5 @@
 package com.aprz.brouter.processor;
 
-import com.example.component_api.ComponentConstants;
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,11 +24,6 @@ import static com.aprz.brouter.processor.Constant.KEY_MODULE_NAME;
  */
 public abstract class BaseProcessor extends AbstractProcessor {
 
-    protected TypeElement mTypeElementString;
-    protected TypeElement mTypeElementInteger;
-    protected TypeElement mTypeElementList;
-    protected TypeElement mTypeElementArrayList;
-    protected TypeElement mTypeElementHashSet;
 
     /**
      * Filer/Types/Elements 这些都是比较常用的
@@ -72,13 +66,6 @@ public abstract class BaseProcessor extends AbstractProcessor {
         } else {
             throw new RuntimeException("BRouter::Compiler >>> No module name, for more information, look at gradle log.");
         }
-
-
-        mTypeElementString = elementUtils.getTypeElement(ComponentConstants.JAVA_STRING);
-        mTypeElementInteger = elementUtils.getTypeElement(ComponentConstants.JAVA_INTEGER);
-        mTypeElementList = elementUtils.getTypeElement(ComponentConstants.JAVA_LIST);
-        mTypeElementArrayList = elementUtils.getTypeElement(ComponentConstants.JAVA_ARRAYLIST);
-        mTypeElementHashSet = elementUtils.getTypeElement(ComponentConstants.JAVA_HASHSET);
 
     }
 
