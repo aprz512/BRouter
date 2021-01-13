@@ -1,9 +1,4 @@
-apply from: "${rootProject.rootDir}/config.gradle"
-if (project.ext.isModuleDebug.toBoolean()) {
-    apply plugin: 'com.android.application'
-} else {
-    apply plugin: 'com.android.library'
-}
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -14,33 +9,18 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        if (project.ext.isModuleDebug.toBoolean()) {
-            // 单独调试时需要添加 applicationId
-            applicationId "com.aprz.login"
-        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [BROUTER_MODULE_NAME: project.getName(),
-                             "HOST"           : "login",
-                ]
+                arguments = [BROUTER_MODULE_NAME: project.getName()]
             }
         }
     }
+
     resourcePrefix "login_"
-    sourceSets {
-        main {
-            //在需要单独调试的module的src/main目录下新建manifest目录和AndroidManifest文件
-            // 单独调试与集成调试时使用不同的 AndroidManifest.xml 文件
-            if (project.ext.isModuleDebug.toBoolean()) {
-                manifest.srcFile 'src/main/run_alone/AndroidManifest.xml'
-            } else {
-                manifest.srcFile 'src/main/AndroidManifest.xml'
-            }
-        }
-    }
 
     buildTypes {
         release {
@@ -63,6 +43,7 @@ dependencies {
     // 3-party
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.android.material:material:1.2.1'
 
     //test
     testImplementation 'junit:junit:4.13.1'
@@ -73,6 +54,9 @@ dependencies {
     implementation project(path: ':brouter_annotation')
     annotationProcessor project(path: ':brouter_processor')
     implementation project(path: ':brouter_api')
+
+    // component
+    implementation project(path: ':base')
 
     // component sdk
     implementation project(path: ':login-sdk')

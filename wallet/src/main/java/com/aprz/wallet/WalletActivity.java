@@ -12,7 +12,6 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 @Route(path = WalletRouteUrl.WALLET_ACTIVITY)
 public class WalletActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,13 +19,13 @@ public class WalletActivity extends AppCompatActivity {
 
         long userId = getIntent().getLongExtra("userId", -1L);
         int count = getIntent().getIntExtra("count", 0);
-        String message = getIntent().getStringExtra("message");
+        String username = getIntent().getStringExtra("username");
 
         String stringBuilder = "接收到的参数：" +
                 "userId = " + userId +
                 ", count = " + count +
-                ", message = " + message;
-        ToastUtils.lShow(this, stringBuilder);
+                ", username = " + username;
+        ToastUtils.sShow(this, stringBuilder);
     }
 
 }

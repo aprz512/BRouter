@@ -3,7 +3,9 @@
     package="com.aprz.login">
 
     <application>
-        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/LoginTheme" />
     </application>
 
 </manifest>

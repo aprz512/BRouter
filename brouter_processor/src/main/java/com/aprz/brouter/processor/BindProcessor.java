@@ -12,7 +12,11 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
@@ -42,7 +46,22 @@ public class BindProcessor extends BaseProcessor {
             Set<? extends Element> routeElements = roundEnv.getElementsAnnotatedWith(Bind.class);
 
             try {
-                this.parseBind(routeElements);
+
+                if (CollectionUtils.isEmpty(routeElements)) {
+                    return false;
+                }
+
+                Map<Element, Set<Element>> map = new HashMap<>();
+                for (Element element : routeElements) {
+                    Element enclosingElement = element.getEnclosingElement();
+                    map.computeIfAbsent(enclosingElement, key -> new HashSet<>()).add(element);
+                }
+
+                Set<Map.Entry<Element, Set<Element>>> entries = map.entrySet();
+                for (Map.Entry<Element, Set<Element>> entry : entries) {
+                    this.parseBind(entry.getValue());
+                }
+
             } catch (Exception ignored) {
                 return false;
             }

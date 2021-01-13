@@ -15,10 +15,13 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 public class WalletActivity2 extends AppCompatActivity {
 
     @Bind
-    String message;
+    String username;
 
     @Bind(key = "count")
     int mCount;
+
+    @Bind
+    long test;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,11 +31,11 @@ public class WalletActivity2 extends AppCompatActivity {
 
         long userId = getIntent().getLongExtra("userId", -1L);
 
-        ToastUtils.lShow(this,
+        ToastUtils.sShow(this,
                 "接收到的参数：" +
                         "userId = " + userId +
                         ", count = " + mCount +
-                        ", message = " + message);
+                        ", username = " + username);
     }
 
 }

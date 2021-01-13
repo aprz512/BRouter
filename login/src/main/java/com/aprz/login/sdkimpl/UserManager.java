@@ -11,7 +11,7 @@ public class UserManager {
     private UserManager() {
     }
 
-    private User user = new User(false, "", -1L);
+    private final User user = new User(false, "", -1L);
 
     public static UserManager getInstance() {
         return Holder.sInstance;

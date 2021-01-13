@@ -22,17 +22,17 @@
 
             <Button
                 android:id="@+id/navigate_to_login"
-                style="@style/AppTheme_Button_Margin16_Padding8"
+                style="@style/Theme_Button_Margin16_Padding8"
                 android:text="@string/app_navigate_to_login_component" />
 
             <Button
                 android:id="@+id/navigate_to_wallet"
-                style="@style/AppTheme_Button_Margin16_Padding8"
+                style="@style/Theme_Button_Margin16_Padding8"
                 android:text="@string/app_navigate_to_wallet_component" />
 
             <Button
                 android:id="@+id/navigate_to_wallet2"
-                style="@style/AppTheme_Button_Margin16_Padding8"
+                style="@style/Theme_Button_Margin16_Padding8"
                 android:text="@string/app_navigate_to_wallet_component2" />
 
         </LinearLayout>

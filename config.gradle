@@ -1,4 +1,0 @@
-project.ext {
-    //是否允许module单独调试
-    isModuleDebug = false
-}

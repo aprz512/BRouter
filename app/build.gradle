@@ -55,6 +55,7 @@ dependencies {
     // component
     runtimeOnly project(':wallet')
     runtimeOnly project(':login')
+    implementation project(':base')
 
     // component sdk
     implementation project(':wallet-sdk')
