@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wallet_wallet_version_1">钱包组件1.0版本</string>
+    <string name="wallet_wallet_version_2">钱包组件2.0版本</string>
+    <string name="wallet_just_for_test">钱包页面，仅供测试用，该页面没有参数拦截器</string>
+</resources>

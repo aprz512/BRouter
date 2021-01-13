@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/wallet_wallet_version_2"
+        android:text="@string/wallet_just_for_test"
         android:textSize="18sp"
         android:textStyle="bold" />
 

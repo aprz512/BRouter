@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.aprz.brouter.fragment.InterceptorFragment;
 import com.aprz.brouter.fragment.NavigationFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<TabPair> pairList = new ArrayList<>();
         pairList.add(new TabPair(tabLayout.newTab().setText("组件跳转"), new NavigationFragment()));
+        pairList.add(new TabPair(tabLayout.newTab().setText("拦截器"), new InterceptorFragment()));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

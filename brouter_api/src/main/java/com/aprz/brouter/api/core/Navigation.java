@@ -70,15 +70,14 @@ public class Navigation {
     }
 
     public void navigate(final Context context, final IRouteInterceptor.Callback callback) {
-        Navigation target = RouteStore.getNavigation(path);
-        List<IRouteInterceptor> interceptorList = InterceptorStore.getInterceptorList(target.path);
+        List<IRouteInterceptor> interceptorList = InterceptorStore.getInterceptorList(path);
         // 最后的拦截器，不然没有 callback.onSuccess 回调
         interceptorList.add(new LastInterceptor());
         Collections.sort(interceptorList, (o1, o2) -> o1.priority() - o2.priority());
         IRouteInterceptor.Chain chain = new RouteInterceptorChain(
                 interceptorList,
                 0,
-                target,
+                this,
                 new IRouteInterceptor.Callback() {
                     @Override
                     public void onSuccess(@NonNull Navigation navigation) {
@@ -96,7 +95,7 @@ public class Navigation {
                         }
                     }
                 });
-        chain.proceed(target);
+        chain.proceed(this);
     }
 
     public void internalNavigate(Context context, Navigation navigation) {

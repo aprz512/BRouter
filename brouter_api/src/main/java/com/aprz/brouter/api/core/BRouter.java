@@ -43,8 +43,9 @@ public class BRouter {
     }
 
     public Navigation path(String path) {
-        RouteStore.completion(path);
-        Navigation navigation = RouteStore.getNavigation(path);
+        String module = getModule(path);
+        RouteStore.completion(path, module);
+        Navigation navigation = RouteStore.getNavigation(path, module);
         navigation.setAppContext(sContext);
         return navigation;
     }
@@ -62,6 +63,25 @@ public class BRouter {
                 | InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 要求跳转路径使用 二级结构，如：wallet/xxx
+     * 因为注解处理器没有做复杂的分组功能，所以，还要求一级路径名为 module 名字
+     *
+     * @return 返回一级路径名
+     */
+    private static String getModule(String path) {
+        if (!path.contains("/")) {
+            // 有了 404， 这个就暂时不强制抛出异常了
+            try {
+                throw new IllegalStateException("路径格式不对：" + path);
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
+            return "unknown";
+        }
+        return path.substring(0, path.indexOf("/"));
     }
 
 }

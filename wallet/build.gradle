@@ -20,6 +20,8 @@ android {
         }
     }
 
+    resourcePrefix 'wallet_'
+
     buildTypes {
         release {
             minifyEnabled false

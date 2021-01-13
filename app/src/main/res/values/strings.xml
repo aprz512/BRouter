@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">BRouter</string>
-    <string name="app_navigate_to_login_component">跳转到登录组件</string>
-    <string name="app_navigate_to_wallet_component">跳转到钱包组件（带上参数）</string>
-    <string name="app_navigate_to_wallet_component2">跳转到钱包组件（带上参数，自动注入）</string>
-    <string name="app_features_are_in_development">功能正在开发中，敬请期待...</string>
+    <string name="app_navigate_to_wallet_component">跳转到钱包组件</string>
+    <string name="app_navigate_to_wallet_component2">跳转到钱包组件（带上参数）</string>
+    <string name="app_navigate_to_wallet_component3">跳转到钱包组件（带上参数，自动注入）</string>
+    <string name="app_features_are_in_development">功能正在开发中，敬请期待…</string>
+    <string name="app_navigate_login">跳转到登录页面去登录</string>
+    <string name="app_navigate_wallet_n">跳转到钱包页面，不传递参数，由于该页面有参数检测拦截器，可以点击试试效果（这里是页面拦截器在起作用）</string>
+    <string name="app_navigate_unknown_url">随便写一个 url，跳转是会发生什么呢？（这里是全局拦截器在起作用）</string>
+    <string name="app_navigate_wallet_after_login">点击上面的登录按钮，登录成功后，再次尝试登录到钱包页面，这个会传递参数</string>
 </resources>

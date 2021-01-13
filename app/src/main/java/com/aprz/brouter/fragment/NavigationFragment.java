@@ -24,24 +24,19 @@ public class NavigationFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.app_fragment_navigation, container, false);
 
-
-        view.findViewById(R.id.navigate_to_login).setOnClickListener(v -> BRouter.getInstance().path("login/main").navigate());
-        view.findViewById(R.id.navigate_to_wallet).setOnClickListener(v -> {
-            IUserService userService = ServiceHelper.getService(IUserService.NAME);
-            User userInfo = userService.getUserInfo();
+        view.findViewById(R.id.navigate_to_wallet2).setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("count", 10);
-            bundle.putString("username", userInfo.getUserName());
-            bundle.putLong("userId", 9527L);
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY).params(bundle).navigate();
+            bundle.putString("username", "who am i");
+            bundle.putLong("userId", 1L);
+            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY2).params(bundle).navigate();
         });
-        view.findViewById(R.id.navigate_to_wallet2).setOnClickListener(v -> {
-            IUserService userService = ServiceHelper.getService(IUserService.NAME);
-            User userInfo = userService.getUserInfo();
+
+        view.findViewById(R.id.navigate_to_wallet3).setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("count", 100);
-            bundle.putString("username", userInfo.getUserName());
-            bundle.putLong("userId", 9527L);
+            bundle.putString("username", "monica");
+            bundle.putLong("userId", 2L);
             BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY2).params(bundle).navigate();
         });
 

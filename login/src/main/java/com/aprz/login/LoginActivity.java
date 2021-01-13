@@ -11,9 +11,10 @@ import com.aprz.base.loading.Loading;
 import com.aprz.base.util.ToastUtils;
 import com.aprz.base.util.UiThreadUtils;
 import com.aprz.brouter.annotation.Route;
+import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdkimpl.UserManager;
 
-@Route(path = "login/main")
+@Route(path = LoginRouteUrl.LOGIN_ACTIVITY)
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userNameEditText;
