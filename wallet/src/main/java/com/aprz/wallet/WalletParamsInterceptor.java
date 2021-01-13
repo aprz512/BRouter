@@ -9,11 +9,12 @@ import com.aprz.brouter.annotation.Interceptor;
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.brouter.api.core.Navigation;
 import com.aprz.brouter.api.interceptor.IRouteInterceptor;
+import com.aprz.wallet.sdk.WalletRouteUrl;
 
 /**
  * 该拦截器用来监测，跳转到 wallet 时，传递的参数是否合规
  */
-@Interceptor(path = Constants.RoutePath.WALLET_ACTIVITY)
+@Interceptor(path = WalletRouteUrl.WALLET_ACTIVITY)
 public class WalletParamsInterceptor implements IRouteInterceptor {
 
     @Override

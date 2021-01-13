@@ -41,7 +41,9 @@ dependencies {
     implementation project(path: ':brouter_api')
     annotationProcessor project(path: ':brouter_processor')
     // 依赖 login 工程暴露出来的 sdk
-    implementation component(':login')
+    implementation project(':login-sdk')
+    implementation project(':base')
+    implementation project(':wallet-sdk')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

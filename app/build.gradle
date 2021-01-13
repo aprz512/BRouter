@@ -21,6 +21,8 @@ android {
                 arguments = [BROUTER_MODULE_NAME: project.getName()]
             }
         }
+
+        resourcePrefix 'app_'
     }
 
     buildTypes {
@@ -42,17 +44,28 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // 3-part
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
+
+    // component
+    runtimeOnly project(':wallet')
+    runtimeOnly project(':login')
+    // component sdk
+    implementation project(':wallet-sdk')
+    implementation project(':login-sdk')
+
+    // route
     implementation project(path: ':brouter_annotation')
     implementation project(path: ':brouter_api')
-    runtimeOnly project(path: ':wallet')
-    runtimeOnly project(path: ':login')
     annotationProcessor project(path: ':brouter_processor')
+
+    // test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-//    api project(':component_impl')
-//    api project(':component_base')
 }

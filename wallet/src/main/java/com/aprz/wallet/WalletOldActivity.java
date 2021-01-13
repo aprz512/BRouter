@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.aprz.brouter.annotation.Bind;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.brouter.api.core.BRouter;
+import com.aprz.wallet.sdk.WalletRouteUrl;
 
-@Route(path = Constants.RoutePath.WALLET_OLD_ACTIVITY)
+@Route(path = WalletRouteUrl.WALLET_OLD_ACTIVITY)
 public class WalletOldActivity extends AppCompatActivity {
 
     @Bind

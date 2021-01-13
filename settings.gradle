@@ -1,3 +1,6 @@
+include ':login-sdk'
+include ':wallet-sdk'
+include ':base'
 rootProject.name = "BRouter"
 
 

@@ -5,5 +5,6 @@
     <application>
         <activity android:name=".WalletActivity" />
         <activity android:name=".WalletOldActivity" />
+        <activity android:name=".WalletActivity2" />
     </application>
 </manifest>
