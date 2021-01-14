@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.aprz.brouter.codeIsolation'
 // 找不到 id 是为啥
 // 检查META-INF和gradle-plugins是不是父子文件夹，as可能会给你优化成一个目录。
 //apply plugin: 'brouter'
@@ -54,9 +55,12 @@ dependencies {
 
     // component
     // 暂时使用 runtimeOnly 来进行代码隔离
-    runtimeOnly project(':wallet')
-    runtimeOnly project(':login')
+//    runtimeOnly project(':wallet')
+//    runtimeOnly project(':login')
     implementation project(':base')
+    // 使用插件来进行代码隔离
+    implementation component(project(':wallet'))
+    implementation component(project(':login'))
 
     // component sdk
     implementation project(':wallet-sdk')

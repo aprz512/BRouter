@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'groovy'
+    id 'maven'
+    id 'com.novoda.bintray-release'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:4.0.2'
+}
+
+
+def _groupId = 'com.aprz.brouter'
+def _artifactId = 'code-isolation'
+def  _version = '0.0.1'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = _groupId
+            pom.artifactId = _artifactId
+            pom.version = _version
+            repository(url: uri('../maven/repository'))
+        }
+    }
+}
+
+publish {
+    userOrg = 'aprz512'
+    groupId = _groupId
+    artifactId = _artifactId
+    publishVersion = _version
+    desc = 'for code isolation'
+}
+
+tasks.withType(JavaCompile){
+    options.encoding='UTF-8'
+}

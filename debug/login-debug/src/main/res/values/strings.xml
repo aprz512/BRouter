@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">login-debug</string>
+    <string name="login">跳转到login页面</string>
+</resources>

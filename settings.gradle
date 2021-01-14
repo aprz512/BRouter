@@ -1,19 +1,21 @@
-include ':login-sdk'
-include ':wallet-sdk'
-include ':base'
 rootProject.name = "BRouter"
 
-
 include ':app'
+include ':base'
 include ':wallet'
 include ':login'
 
+include ':login-sdk'
+include ':wallet-sdk'
 
 include ':brouter_api'
 include ':brouter_annotation'
 include ':brouter_processor'
 include ':brouter_plugin'
+include ':code-isolation'
 
+include ':debug:login-debug'
+include ':debug:wallet-debug'
 
 //include ':component_impl'
 //include ':component_base'
