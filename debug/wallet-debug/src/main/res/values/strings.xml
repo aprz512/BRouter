@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">wallet-debug</string>
+    <string name="navigate_to_wallet_test_page">跳转到钱包测试页面</string>
 </resources>
