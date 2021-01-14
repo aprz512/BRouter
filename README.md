@@ -5,6 +5,11 @@
 - 项目中代码以简单易懂为主。
 - 在看懂本项目的情况下，再去看其他的开源库会轻松很多。
 
+### 项目app预览
+
+<img src="img/preview1.png" width="30%"> <img src="img/preview2.png" width="30%"> <img src="img/preview3.png" width="30%">
+
+<img src="img/preview4.png" width="30%">  
 
 
 ### 功能实现原理
@@ -33,5 +38,7 @@
     BRouter.init(this, true);
     ```
 
-    **需要注意：**因为有gradle插件，且工程使用的是本地maven依赖，所以需要先将 `brouter_api` 的插件发布出来，然后才能使用。
+    **需要注意：** 因为有gradle插件，且工程使用的是本地maven依赖，所以需要先将 `brouter_api` 的插件发布出来，然后才能使用。
     点击 brouter_api -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
+    
+    然后，将 app 下的 build.gradle 的 `//apply plugin: 'brouter'` 这行注释打开

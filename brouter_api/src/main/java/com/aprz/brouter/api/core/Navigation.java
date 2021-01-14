@@ -33,6 +33,10 @@ public class Navigation {
         this.appContext = appContext;
     }
 
+    public Context getAppContext() {
+        return appContext;
+    }
+
     public Navigation(String path, String group, Class<? extends Activity> targetActivityClass) {
         this.path = path;
         this.group = group;
@@ -94,7 +98,8 @@ public class Navigation {
                             callback.onFail(exception);
                         }
                     }
-                });
+                },
+                callback);
         chain.proceed(this);
     }
 

@@ -2,15 +2,21 @@ package com.aprz.login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.aprz.base.loading.Loading;
 import com.aprz.base.util.ToastUtils;
 import com.aprz.base.util.UiThreadUtils;
 import com.aprz.brouter.annotation.Route;
+import com.aprz.brouter.api.core.BRouter;
+import com.aprz.brouter.api.core.Navigation;
+import com.aprz.brouter.api.interceptor.IRouteInterceptor;
 import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdkimpl.UserManager;
 
@@ -43,6 +49,21 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }, 1000L);
         });
+
+        TextView linkSignUpText = findViewById(R.id.link_sign_up);
+        linkSignUpText.setOnClickListener(v -> BRouter.getInstance()
+                .path("login/signUp")
+                .navigate(this, new IRouteInterceptor.Callback() {
+                    @Override
+                    public void onSuccess(@NonNull Navigation navigation) {
+
+                    }
+
+                    @Override
+                    public void onFail(@NonNull Throwable exception) {
+                        ToastUtils.sShow(linkSignUpText.getContext(), "暂不支持该功能");
+                    }
+                }));
 
     }
 

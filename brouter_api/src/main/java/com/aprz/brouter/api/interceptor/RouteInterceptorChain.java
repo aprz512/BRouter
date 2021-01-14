@@ -28,19 +28,26 @@ public class RouteInterceptorChain implements IRouteInterceptor.Chain {
     private final Navigation navigation;
 
     /**
-     * 拦截结果回调
+     * 责任链内部的回调
      */
     private final IRouteInterceptor.Callback callback;
+
+    /**
+     * 用户设置的回调
+     */
+    private final IRouteInterceptor.Callback userCallback;
 
 
     public RouteInterceptorChain(@NonNull List<IRouteInterceptor> interceptors,
                                  int index,
                                  Navigation navigation,
-                                 @NonNull IRouteInterceptor.Callback callback) {
+                                 @NonNull IRouteInterceptor.Callback callback,
+                                 IRouteInterceptor.Callback userCallback) {
         this.interceptors = interceptors;
         this.index = index;
         this.navigation = navigation;
         this.callback = callback;
+        this.userCallback = userCallback;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class RouteInterceptorChain implements IRouteInterceptor.Chain {
                 }
 
                 IRouteInterceptor interceptor = interceptors.get(index);
-                RouteInterceptorChain next = new RouteInterceptorChain(interceptors, index + 1, navigation, callback);
+                RouteInterceptorChain next = new RouteInterceptorChain(interceptors, index + 1, navigation, callback, userCallback);
                 interceptor.intercept(next, callback);
             }
         });
@@ -72,6 +79,11 @@ public class RouteInterceptorChain implements IRouteInterceptor.Chain {
     @Override
     public Navigation navigate() {
         return navigation;
+    }
+
+    @Override
+    public IRouteInterceptor.Callback userCallback() {
+        return userCallback;
     }
 
 

@@ -31,16 +31,21 @@ public class NotFoundInterceptor implements IRouteInterceptor {
         Log.e(TAG, "NotFoundInterceptor run on " + Thread.currentThread().getName());
         Navigation navigate = chain.navigate();
         if (navigate.invalid()) {
+            // 这里 interrupt 了，如果用户设置了回调，后面应该没有逻辑才对
             chain.interrupt(new RouteNotFoundException("没有找到匹配的路由地址：" + navigate.getPath()));
-            // 有降级策略，走降级
-            IRouteDegrade routeDegrade = DegradeHelper.getRouteDegrade(navigate);
-            if (routeDegrade != null) {
-                routeDegrade.handleDegrade(navigate);
-            }
-            // 没有降级策略，走默认页面
-            else {
-                // 不要搞成死循环了
-                BRouter.getInstance().path("app/not_found").navigate();
+
+            // 用户设置了回调，那么就走用户的回调
+            if (chain.userCallback() == null) {
+                // 有降级策略，走降级
+                IRouteDegrade routeDegrade = DegradeHelper.getRouteDegrade(navigate);
+                if (routeDegrade != null) {
+                    routeDegrade.handleDegrade(navigate);
+                }
+                // 没有降级策略，走默认页面
+                else {
+                    // 不要搞成死循环了
+                    BRouter.getInstance().path("app/not_found").navigate();
+                }
             }
         } else {
             // 有降级策略，走降级

@@ -17,6 +17,8 @@ public interface IRouteInterceptor {
 
     /**
      * 拦截器的拦截方法，Chain 作为参数，可以使用它来决定是否拦截
+     *
+     * @param callback 责任链内部的回调，开发者应该使用 chain 里面的回调
      */
     void intercept(@NonNull Chain chain, @NonNull Callback callback);
 
@@ -36,6 +38,8 @@ public interface IRouteInterceptor {
          * 返回路由对象
          */
         Navigation navigate();
+
+        Callback userCallback();
     }
 
     interface Callback {
