@@ -1,5 +1,7 @@
 package com.aprz.login.sdkimpl;
 
+import androidx.lifecycle.LiveData;
+
 import com.aprz.brouter.annotation.Service;
 import com.aprz.login.sdk.IUserService;
 import com.aprz.login.sdk.User;
@@ -8,8 +10,12 @@ import com.aprz.login.sdk.User;
 public class UserService implements IUserService {
 
     @Override
-    public User getUserInfo() {
-        return UserManager.getInstance().getUser();
+    public LiveData<User> getUserStream() {
+        return UserManager.getInstance().userStream();
     }
 
+    @Override
+    public User getUser() {
+        return UserManager.getInstance().getUser();
+    }
 }

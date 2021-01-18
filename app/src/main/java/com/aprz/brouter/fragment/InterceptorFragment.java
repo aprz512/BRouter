@@ -43,7 +43,7 @@ public class InterceptorFragment extends Fragment {
 
         navigateWalletAfterLoginButton.setOnClickListener(v -> {
             IUserService userService = ServiceHelper.getService(IUserService.NAME);
-            User user = userService.getUserInfo();
+            User user = userService.getUser();
             Bundle bundle = new Bundle();
             bundle.putLong("userId", user.getUserId());
             bundle.putString("username", user.getUserName());

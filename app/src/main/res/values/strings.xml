@@ -9,4 +9,8 @@
     <string name="app_navigate_unknown_url">随便写一个 url，跳转是会发生什么呢？（这里是全局拦截器在起作用）</string>
     <string name="app_navigate_wallet_after_login">点击上面的登录按钮，登录成功后，再次尝试登录到钱包页面，这个会传递参数</string>
     <string name="app_wallet_crash_degrade">测试钱包页面的降级策略，新的钱包页面有 crash 检测，如果 crash 超过 3 次，则降级到老的钱包页面</string>
+    <string name="app_test_login_sdk">测试 login 组件对外提供的服务</string>
+    <string name="app_username_text">用户名：</string>
+    <string name="app_user_id_text">用户id：</string>
+    <string name="app_watch_user_info_after_login">去登录，然后回来观察用户信息是否同步了</string>
 </resources>

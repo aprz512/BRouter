@@ -22,22 +22,22 @@
 
             <Button
                 android:id="@+id/navigate_to_unknown"
-                style="@style/Theme_Button_Margin16_Padding8"
+                style="@style/Style_Margin16_Padding8"
                 android:text="@string/app_navigate_unknown_url" />
 
             <Button
                 android:id="@+id/navigate_to_wallet_n"
-                style="@style/Theme_Button_Margin16_Padding8"
+                style="@style/Style_Margin16_Padding8"
                 android:text="@string/app_navigate_wallet_n" />
 
             <Button
                 android:id="@+id/navigate_to_login"
-                style="@style/Theme_Button_Margin16_Padding8"
+                style="@style/Style_Margin16_Padding8"
                 android:text="@string/app_navigate_login" />
 
             <Button
                 android:id="@+id/navigate_to_login_then_wallet"
-                style="@style/Theme_Button_Margin16_Padding8"
+                style="@style/Style_Margin16_Padding8"
                 android:text="@string/app_navigate_wallet_after_login" />
 
         </LinearLayout>

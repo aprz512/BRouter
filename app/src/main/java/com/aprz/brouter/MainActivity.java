@@ -12,6 +12,7 @@ import com.aprz.base.activity.BaseActivity;
 import com.aprz.brouter.fragment.DegradeFragment;
 import com.aprz.brouter.fragment.InterceptorFragment;
 import com.aprz.brouter.fragment.NavigationFragment;
+import com.aprz.brouter.fragment.ServiceFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseActivity {
         pairList.add(new TabPair(tabLayout.newTab().setText("组件跳转"), new NavigationFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("拦截器"), new InterceptorFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("降级策略"), new DegradeFragment()));
+        pairList.add(new TabPair(tabLayout.newTab().setText("组件对外提供服务"), new ServiceFragment()));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

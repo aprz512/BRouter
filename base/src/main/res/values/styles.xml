@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme_Button_Margin16_Padding8">
+    <style name="Style_Margin16_Padding8">
         <item name="android:padding">8dp</item>
         <item name="android:layout_margin">16dp</item>
         <item name="android:layout_width">wrap_content</item>
