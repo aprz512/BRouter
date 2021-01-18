@@ -6,5 +6,6 @@
         <activity android:name=".WalletActivity"  android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
         <activity android:name=".WalletOldActivity" />
         <activity android:name=".WalletActivity2" />
+        <activity android:name=".WalletActivity3" />
     </application>
 </manifest>

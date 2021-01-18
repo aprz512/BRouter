@@ -4,11 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.aprz.base.activity.BaseActivity;
+import com.aprz.brouter.fragment.DegradeFragment;
 import com.aprz.brouter.fragment.InterceptorFragment;
 import com.aprz.brouter.fragment.NavigationFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -16,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         List<TabPair> pairList = new ArrayList<>();
         pairList.add(new TabPair(tabLayout.newTab().setText("组件跳转"), new NavigationFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("拦截器"), new InterceptorFragment()));
+        pairList.add(new TabPair(tabLayout.newTab().setText("降级策略"), new DegradeFragment()));
 
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

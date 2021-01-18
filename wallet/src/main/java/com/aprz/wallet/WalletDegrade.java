@@ -25,6 +25,7 @@ public class WalletDegrade implements IRouteDegrade {
         // 降级，跳转到老的页面
         BRouter.getInstance()
                 .path(WalletRouteUrl.WALLET_OLD_ACTIVITY)
+                .params(navigation.getParams())
                 .navigate();
     }
 

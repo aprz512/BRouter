@@ -18,6 +18,9 @@ import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdk.User;
 import com.aprz.wallet.sdk.WalletRouteUrl;
 
+/**
+ * 测试拦截器
+ */
 public class InterceptorFragment extends Fragment {
 
     @Nullable

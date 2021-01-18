@@ -2,17 +2,15 @@ package com.aprz.login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.aprz.base.activity.BaseActivity;
 import com.aprz.base.loading.Loading;
 import com.aprz.base.util.ToastUtils;
-import com.aprz.base.util.UiThreadUtils;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.brouter.api.core.Navigation;
@@ -21,7 +19,7 @@ import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdkimpl.UserManager;
 
 @Route(path = LoginRouteUrl.LOGIN_ACTIVITY)
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText userNameEditText;
     private EditText passwordEditText;
@@ -42,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             Loading.show(getSupportFragmentManager());
-            UiThreadUtils.runDelay(() -> {
+            postDelay(() -> {
                 Loading.dismiss(getSupportFragmentManager());
                 UserManager.getInstance().whenLogin(userNameEditText.getText().toString(), 9527L);
                 ToastUtils.sShow(this, "登录成功");

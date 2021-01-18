@@ -8,4 +8,5 @@
     <string name="app_navigate_wallet_n">跳转到钱包页面，不传递参数，由于该页面有参数检测拦截器，可以点击试试效果（这里是页面拦截器在起作用）</string>
     <string name="app_navigate_unknown_url">随便写一个 url，跳转是会发生什么呢？（这里是全局拦截器在起作用）</string>
     <string name="app_navigate_wallet_after_login">点击上面的登录按钮，登录成功后，再次尝试登录到钱包页面，这个会传递参数</string>
+    <string name="app_wallet_crash_degrade">测试钱包页面的降级策略，新的钱包页面有 crash 检测，如果 crash 超过 3 次，则降级到老的钱包页面</string>
 </resources>

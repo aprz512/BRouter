@@ -16,6 +16,9 @@ import com.aprz.login.sdk.IUserService;
 import com.aprz.login.sdk.User;
 import com.aprz.wallet.sdk.WalletRouteUrl;
 
+/**
+ * 测试组件之间 activity 的跳转
+ */
 public class NavigationFragment extends Fragment {
 
     @Nullable
@@ -37,7 +40,7 @@ public class NavigationFragment extends Fragment {
             bundle.putInt("count", 100);
             bundle.putString("username", "monica");
             bundle.putLong("userId", 2L);
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY2).params(bundle).navigate();
+            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY3).params(bundle).navigate();
         });
 
         return view;

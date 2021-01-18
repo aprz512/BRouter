@@ -32,7 +32,8 @@ public class WalletActivity3 extends AppCompatActivity {
         ToastUtils.sShow(this,
                 "接收到的参数：" +
                         "userId = " + userId +
-                        ", username = " + username);
+                        ", username = " + username +
+                        ", mCount = " + mCount);
     }
 
 }
