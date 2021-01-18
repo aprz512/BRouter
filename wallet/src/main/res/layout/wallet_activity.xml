@@ -71,27 +71,6 @@
                     android:layout_height="match_parent"
                     android:overScrollMode="never" />
 
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_bank_card"-->
-                <!--                    android:layout_width="100dp"-->
-                <!--                    android:layout_height="100dp"-->
-                <!--                    android:layout_margin="16dp"-->
-                <!--                    android:src="@drawable/wallet_icon_bank_card"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent"-->
-                <!--                    tools:ignore="ContentDescription" />-->
-
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:text="@string/wallet_wallet_version_2"-->
-                <!--                    android:textSize="18sp"-->
-                <!--                    android:textStyle="bold"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--                    app:layout_constraintRight_toRightOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

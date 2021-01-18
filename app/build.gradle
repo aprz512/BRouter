@@ -53,13 +53,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
 
     // component
-    // 暂时使用 runtimeOnly 来进行代码隔离
-//    runtimeOnly project(':wallet')
-//    runtimeOnly project(':login')
     implementation project(':base')
     // 使用插件来进行代码隔离
     implementation component(project(':wallet'))
     implementation component(project(':login'))
+    implementation component(project(':card'))
 
     // component sdk
     implementation project(':wallet-sdk')

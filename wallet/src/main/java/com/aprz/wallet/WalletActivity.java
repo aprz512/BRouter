@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.aprz.base.viewlisteners.ListenerFactory;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.card.sdk.CardRouteUrl;
@@ -24,6 +25,8 @@ public class WalletActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet_activity);
+
+        findViewById(R.id.tool_bar).setOnClickListener(ListenerFactory.finish(this));
 
         // data
         List<FunctionEntry> functionEntryList = new ArrayList<>();

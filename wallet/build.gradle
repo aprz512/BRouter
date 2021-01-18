@@ -59,9 +59,6 @@ dependencies {
     implementation project(':wallet-sdk')
     implementation project(':card-sdk')
 
-    // component
-    implementation project(':card')
-
     // base
     implementation project(':base')
 
