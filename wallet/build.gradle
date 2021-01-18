@@ -43,6 +43,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    // multiType
+    implementation 'me.drakeet.multitype:multitype:3.5.0'
+    implementation "com.aprz:multitype-api:1.0.1"
+    implementation "com.aprz:multitype-annotation:1.0.1"
+    annotationProcessor "com.aprz:multitype-compiler:1.0.1"
+
     // route
     implementation project(path: ':brouter_annotation')
     implementation project(path: ':brouter_api')
@@ -51,6 +57,10 @@ dependencies {
     // 依赖 login 工程暴露出来的 sdk
     implementation project(':login-sdk')
     implementation project(':wallet-sdk')
+    implementation project(':card-sdk')
+
+    // component
+    implementation project(':card')
 
     // base
     implementation project(':base')

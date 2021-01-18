@@ -1,9 +1,11 @@
+include ':card-sdk'
 rootProject.name = "BRouter"
 
 include ':app'
 include ':base'
 include ':wallet'
 include ':login'
+include ':card'
 
 include ':login-sdk'
 include ':wallet-sdk'

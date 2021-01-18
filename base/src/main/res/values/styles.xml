@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -27,6 +27,24 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="background">@color/colorAccent</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Toolbar_Theme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="Toolbar_Style" >
+       <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="background">@color/colorPrimary</item>
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+        <item name="titleTextColor">@color/colorAccent</item>
+    </style>
+
+    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+    <style name="CollapsingTextAppearance.Inverse">
+        <item name="android:textSize">30sp</item>
     </style>
 
 </resources>

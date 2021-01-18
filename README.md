@@ -45,3 +45,7 @@
     点击 brouter_api -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
     
     然后，将 app 下的 build.gradle 的 `//apply plugin: 'brouter'` 这行注释打开
+    
+- app 里面使用了代码隔离插件，所以也需要先将该插件发布到本地（发布的时候，可以先将对应的使用到该插件代码的位置注释掉，否则会无法同步）：
+  
+    点击 code-isolation -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。

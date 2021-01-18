@@ -3,7 +3,7 @@
 
 
     <application>
-        <activity android:name=".WalletActivity" />
+        <activity android:name=".WalletActivity"  android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
         <activity android:name=".WalletOldActivity" />
         <activity android:name=".WalletActivity2" />
     </application>

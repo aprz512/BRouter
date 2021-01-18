@@ -14,6 +14,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [BROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -26,15 +32,26 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    resourcePrefix 'card_'
 }
 
 dependencies {
     // 3-party
-    api 'androidx.appcompat:appcompat:1.2.0'
-    api 'androidx.constraintlayout:constraintlayout:2.0.4'
-    api 'com.google.android.material:material:1.2.1'
-    api 'com.zzhoujay.materialcolors:materialcolors:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    // base
+    implementation project(':base')
+
+    // sdk
+    implementation project(':card-sdk')
+
+    // route
+    implementation project(path: ':brouter_annotation')
+    implementation project(path: ':brouter_api')
+    annotationProcessor project(path: ':brouter_processor')
 
     // test
     testImplementation 'junit:junit:4.13.1'

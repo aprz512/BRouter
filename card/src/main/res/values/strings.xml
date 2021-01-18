@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="card_add_bank_card">添加银行卡</string>
+    <string name="card_add_bank_card_sub_desc">点击该卡片即可添加</string>
+    <string name="card_credit_card">银行卡</string>
+</resources>
