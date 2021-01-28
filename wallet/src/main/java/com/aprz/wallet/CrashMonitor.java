@@ -21,7 +21,7 @@ public class CrashMonitor {
     public static boolean needDegrade(String pagePath) {
         Integer crashCount = pages.get(pagePath);
         if (crashCount != null) {
-            return crashCount >= 2;
+            return crashCount >= 3;
         }
 
         return false;
