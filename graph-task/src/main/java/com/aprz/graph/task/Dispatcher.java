@@ -15,26 +15,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
 
-    private final ExecutorService taskExecutor = getDefaultExecutor();
+    private static final ExecutorService taskExecutor;
 
     private final LinkedBlockingQueue<Task> uiThreadTaskQueue = new LinkedBlockingQueue<>();
 
     private static final Dispatcher dispatcher = new Dispatcher();
 
-    private Dispatcher() {
-    }
-
-    public static Dispatcher getInstance() {
-        return dispatcher;
-    }
-
-    /**
-     * 执行 task 的线程池，声明的任务，只要不是在主线程运行的，都会被放到这里线程池里面执行
-     *
-     * @return 线程池
-     */
-    private ExecutorService getDefaultExecutor() {
-        return Executors.newCachedThreadPool(new ThreadFactory() {
+    static {
+        taskExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
             private final AtomicInteger mCount = new AtomicInteger(1);
 
             public Thread newThread(Runnable r) {
@@ -43,13 +31,24 @@ public class Dispatcher {
         });
     }
 
+    private Dispatcher() {
+    }
+
+    public static Dispatcher getInstance() {
+        return dispatcher;
+    }
+
+    public void init() {
+        uiThreadTaskQueue.clear();
+    }
+
     public void dispatch(Task task) {
         // 先将要在主线程运行的 task 都储存起来
         if (task.isRunInUiThread()) {
-            LogUtils.d("将 " + task.name + "放入集合中") ;
+            LogUtils.d("将 " + task.name + "放入集合中");
             uiThreadTaskQueue.add(task);
         } else {
-            getDefaultExecutor().execute(task);
+            taskExecutor.execute(task);
         }
     }
 

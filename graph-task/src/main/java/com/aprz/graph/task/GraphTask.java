@@ -104,6 +104,11 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
         lifecycleListener.clear();
     }
 
+    @Override
+    public List<Task> getSuccessorList() {
+        return startTask.getSuccessorList();
+    }
+
     /**
      * <p>通过 Builder将多个 Task 组成一个 Project 。它可以单独拿出去执行，也可以作为
      * 一个子 Task 嵌入到另外一个 Project 中。</p>
@@ -167,7 +172,7 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
          *
          * @param task 增加的 Task 对象.
          */
-        private void add(Task task) {
+        public Builder add(Task task) {
             targetTask = task;
             targetTask.addSuccessor(finishTask);
             targetTask.addTaskLifecycleListener(new TaskLifecycleListener() {
@@ -186,6 +191,7 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
                     graphTask.onTaskDispatched(task);
                 }
             });
+            return this;
         }
 
         /**
@@ -220,7 +226,7 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
             return Builder.this;
         }
 
-        private void dependsOn(@NonNull Task... tasks) {
+        public Builder dependsOn(@NonNull Task... tasks) {
             if (tasks.length <= 0) {
                 startTask.addSuccessor(targetTask);
             } else {
@@ -229,6 +235,8 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
                     finishTask.removePredecessor(task);
                 }
             }
+
+            return Builder.this;
         }
 
         public void checkTaskFactory() {

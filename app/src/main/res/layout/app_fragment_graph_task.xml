@@ -23,12 +23,32 @@
             <Button
                 android:id="@+id/graph_task_test1"
                 style="@style/Style_Margin16_Padding8"
-                android:text="@string/app_graph_task_test1" />
+                android:text="@string/app_graph_task_test_case1" />
 
             <Button
                 android:id="@+id/graph_task_test2"
                 style="@style/Style_Margin16_Padding8"
-                android:text="@string/app_graph_task_test2" />
+                android:text="@string/app_graph_task_test_case2" />
+
+            <Button
+                android:id="@+id/graph_task_test3"
+                style="@style/Style_Margin16_Padding8"
+                android:text="@string/app_graph_task_test_case3" />
+
+            <Button
+                android:id="@+id/graph_task_test4"
+                style="@style/Style_Margin16_Padding8"
+                android:text="@string/app_graph_task_test_case4" />
+
+            <Button
+                android:id="@+id/graph_task_test5"
+                style="@style/Style_Margin16_Padding8"
+                android:text="@string/app_graph_task_test_case5" />
+
+            <Button
+                android:id="@+id/graph_task_test6"
+                style="@style/Style_Margin16_Padding8"
+                android:text="@string/app_graph_task_test_case6" />
 
         </LinearLayout>
 

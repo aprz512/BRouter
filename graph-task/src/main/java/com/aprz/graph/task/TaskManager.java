@@ -4,6 +4,9 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 暂时没有支持多进程
  */
@@ -43,6 +46,25 @@ public class TaskManager {
     }
 
     private void addListeners() {
+        // 为子 graphTask 添加监听
+        List<Task> allTask = new ArrayList<>();
+        dfs(allTask, graphTask);
+        for (Task task : allTask) {
+            LogUtils.d("打印 dfs 任务： " + task.name);
+            if (task instanceof GraphTask) {
+                LogUtils.d("找到了 GraphTask 任务： " + task.name);
+                ((GraphTask) task).addLifecycleListener(new GraphTaskLifecycleListener() {
+                    @Override
+                    public void onTaskDispatched(Task task) {
+                        if (task.isRunInUiThread()) {
+                            LogUtils.d("运行在主线程的任务 --> " + task.name + " <-- 被分派了，通知 waitUntilFinish 的阻塞线程去释放锁");
+                            releaseWaitFinishLock();
+                        }
+                    }
+                });
+            }
+        }
+
         graphTask.addLifecycleListener(new GraphTaskLifecycleListener() {
             @Override
             public void onFinish() {
@@ -59,6 +81,15 @@ public class TaskManager {
             }
 
         });
+    }
+
+    private void dfs(List<Task> collect, Task root) {
+        for (Task task : root.getSuccessorList()) {
+            if (!collect.contains(task)) {
+                collect.add(task);
+            }
+            dfs(collect, task);
+        }
     }
 
     private void releaseWaitFinishLock() {
@@ -78,8 +109,12 @@ public class TaskManager {
                 } catch (InterruptedException e) {
                     LogUtils.w(e);
                 }
-                LogUtils.d("waitUntilFinish 的阻塞线程被唤醒了，去执行主线程的工作");
-                Dispatcher.getInstance().runUiThreadTask();
+                if (isGraphTaskFinished) {
+                    LogUtils.d("waitUntilFinish 的阻塞线程被唤醒了，任务图执行完了，线程继续往下执行");
+                } else {
+                    LogUtils.d("waitUntilFinish 的阻塞线程被唤醒了，去执行 Task");
+                    Dispatcher.getInstance().runUiThreadTask();
+                }
             }
         }
     }

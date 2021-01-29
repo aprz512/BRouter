@@ -216,6 +216,10 @@ public abstract class Task implements Runnable {
         }
     }
 
+    public List<Task> getSuccessorList() {
+        return successorList;
+    }
+
     /**
      * 一个task完成时的回调
      */
