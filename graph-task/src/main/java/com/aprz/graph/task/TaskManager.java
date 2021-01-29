@@ -11,7 +11,7 @@ public class TaskManager {
 
     private static TaskManager instance = null;
     private GraphTask graphTask;
-    private volatile boolean isStartupFinished = false;
+    private volatile boolean isGraphTaskFinished = false;
     private static final byte[] waitFinishLock = new byte[0];
 
     private TaskManager() {
@@ -25,26 +25,39 @@ public class TaskManager {
         return instance;
     }
 
-    public void addGraphTask(@NonNull GraphTask graphTask) {
+    public TaskManager addGraphTask(@NonNull GraphTask graphTask) {
+        // reset
+        isGraphTaskFinished = false;
         this.graphTask = graphTask;
         addListeners();
+        return this;
     }
 
-    public void start() {
+    public TaskManager start() {
         if (graphTask != null) {
             graphTask.start();
         } else {
-            LogUtils.d("You should add task first!!!");
+            throw new IllegalStateException("graphTask is null !!!");
         }
+        return this;
     }
 
     private void addListeners() {
-        graphTask.addTaskLifecycleListener(new Task.TaskLifecycleListener() {
+        graphTask.addLifecycleListener(new GraphTaskLifecycleListener() {
             @Override
-            public void onTaskFinish(Task task) {
-                isStartupFinished = true;
+            public void onFinish() {
+                isGraphTaskFinished = true;
                 releaseWaitFinishLock();
             }
+
+            @Override
+            public void onTaskDispatched(Task task) {
+                if (task.isRunInUiThread()) {
+                    LogUtils.d("运行在主线程的任务 --> " + task.name + " <-- 被分派了，通知 waitUntilFinish 的阻塞线程去释放锁");
+                    releaseWaitFinishLock();
+                }
+            }
+
         });
     }
 
@@ -59,19 +72,16 @@ public class TaskManager {
      */
     public void waitUntilFinish() {
         synchronized (waitFinishLock) {
-            while (!isStartupFinished) {
+            while (!isGraphTaskFinished) {
                 try {
                     waitFinishLock.wait();
                 } catch (InterruptedException e) {
                     LogUtils.w(e);
                 }
+                LogUtils.d("waitUntilFinish 的阻塞线程被唤醒了，去执行主线程的工作");
+                Dispatcher.getInstance().runUiThreadTask();
             }
         }
     }
-
-    private boolean isMainThread(Thread thread) {
-        return thread == Looper.getMainLooper().getThread();
-    }
-
 
 }

@@ -13,4 +13,6 @@
     <string name="app_username_text">用户名：</string>
     <string name="app_user_id_text">用户id：</string>
     <string name="app_watch_user_info_after_login">去登录，然后回来观察用户信息是否同步了</string>
+    <string name="app_graph_task_test1">graph-task 测试用例1</string>
+    <string name="app_graph_task_test2">graph-task 测试用例2</string>
 </resources>

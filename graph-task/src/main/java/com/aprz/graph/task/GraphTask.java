@@ -24,11 +24,11 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
     private final List<GraphTaskLifecycleListener> lifecycleListener = new ArrayList<>();
 
     public GraphTask(String name) {
-        super(name);
+        super(name, false);
     }
 
     @Override
-    public void run() {
+    public void call() {
         // do nothing
     }
 
@@ -50,6 +50,13 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
     @Override
     public void onStart() {
         startTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onTaskDispatched(Task task) {
+        for (GraphTaskLifecycleListener listener : lifecycleListener) {
+            listener.onTaskDispatched(task);
+        }
     }
 
     @Override
@@ -115,8 +122,8 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
         private String graphTaskName;
 
         public Builder() {
-            startTask = new AnchorTask(true, "--> GraphTask-StartTask <--");
-            finishTask = new AnchorTask(false, "--> GraphTask-FinishTask <--");
+            startTask = new AnchorTask("--> GraphTask-StartTask <--");
+            finishTask = new AnchorTask("--> GraphTask-FinishTask <--");
         }
 
         /**
@@ -167,7 +174,6 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
                 @Override
                 public void onTaskStart(Task task) {
                     graphTask.onTaskStart(task);
-
                 }
 
                 @Override
@@ -175,6 +181,10 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
                     graphTask.onTaskFinish(task);
                 }
 
+                @Override
+                public void onTaskDispatched(Task task) {
+                    graphTask.onTaskDispatched(task);
+                }
             });
         }
 
@@ -210,13 +220,14 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
             return Builder.this;
         }
 
-        private void dependsOn(Task... tasks) {
-            if (tasks == null || tasks.length <= 0) {
+        private void dependsOn(@NonNull Task... tasks) {
+            if (tasks.length <= 0) {
                 startTask.addSuccessor(targetTask);
-            }
-            for (Task task : tasks) {
-                task.addSuccessor(targetTask);
-                finishTask.removePredecessor(task);
+            } else {
+                for (Task task : tasks) {
+                    task.addSuccessor(targetTask);
+                    finishTask.removePredecessor(task);
+                }
             }
         }
 
@@ -234,8 +245,18 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
 
         public GraphTask build() {
             graphTask = new GraphTask(graphTaskName);
-            finishTask.setLifecycleListener(graphTask);
-            startTask.setLifecycleListener(graphTask);
+            startTask.addTaskLifecycleListener(new TaskLifecycleListener() {
+                @Override
+                public void onTaskStart(Task task) {
+                    graphTask.onStart();
+                }
+            });
+            finishTask.addTaskLifecycleListener(new TaskLifecycleListener() {
+                @Override
+                public void onTaskFinish(Task task) {
+                    graphTask.onFinish();
+                }
+            });
             graphTask.setStartTask(startTask);
             graphTask.setFinishTask(finishTask);
             return graphTask;
@@ -256,27 +277,14 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
      * </p>
      */
     private static class AnchorTask extends Task {
-        private final boolean isStartTask;
-        private GraphTaskLifecycleListener lifecycleListener;
 
-        public AnchorTask(boolean isStartTask, String name) {
-            super(name);
-            this.isStartTask = isStartTask;
-        }
-
-        public void setLifecycleListener(GraphTaskLifecycleListener listener) {
-            lifecycleListener = listener;
+        public AnchorTask(String name) {
+            super(name, false);
         }
 
         @Override
-        public void run() {
-            if (lifecycleListener != null) {
-                if (isStartTask) {
-                    lifecycleListener.onStart();
-                } else {
-                    lifecycleListener.onFinish();
-                }
-            }
+        public void call() {
+
         }
 
     }

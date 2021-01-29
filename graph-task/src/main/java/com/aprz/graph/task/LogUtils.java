@@ -7,7 +7,7 @@ public class LogUtils {
     /**
      * 全局的日志过滤 TAG，graph-task 库输出的日志，都可以用该 TAG 过滤
      */
-    public static final String GLOBAL_TAG = "--> ALPHA <--";
+    public static final String GLOBAL_TAG = "--> GraphTask <--";
 
     /**
      * 日志输出开关，默认是打开的

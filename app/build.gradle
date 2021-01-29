@@ -58,6 +58,7 @@ dependencies {
     implementation component(project(':wallet'))
     implementation component(project(':login'))
     implementation component(project(':card'))
+    implementation project(':graph-task')
 
     // component sdk
     implementation project(':wallet-sdk')

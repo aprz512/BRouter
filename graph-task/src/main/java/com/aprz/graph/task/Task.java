@@ -1,18 +1,9 @@
 package com.aprz.graph.task;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 表示一个任务
@@ -24,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 紧前：如果 task A 依赖 task B，则 B 是 A 的紧前任务
  * 紧后：如果 task A 依赖 task B，则 A 是 B 的紧后任务
  */
-public abstract class Task {
+public abstract class Task implements Runnable {
 
     /**
      * 执行状态，尚未执行
@@ -57,13 +48,6 @@ public abstract class Task {
     private boolean isRunInUiThread;
 
     /**
-     * 主线程的 handler
-     */
-    private static final Handler sUiThreadHandler = new Handler(Looper.getMainLooper());
-
-    private static final ExecutorService sTaskExecutor = getDefaultExecutor();
-
-    /**
      * 该任务的“紧后”任务
      */
     private final List<Task> successorList = new ArrayList<>();
@@ -79,24 +63,17 @@ public abstract class Task {
     protected String name;
 
     /**
-     * 该任务实际运行的内容被封装在这个 runnable 里面
-     */
-    private Runnable internalRunnable;
-
-    /**
      * 该 Task 结束时的回调
      */
     private final List<TaskLifecycleListener> taskLifecycleListeners = new ArrayList<>();
 
-
     /**
-     * 构造方法
-     *
-     * @param name task的名字
+     * 任务真正开始执行的锁，因为在主线程调用 {@link TaskManager#waitUntilFinish()} 方法的时候，如果
+     * 执行的任务有必须要在主线程运行的，则会导致死锁。
+     * 为了解决这个问题，所以在 task 执行的时候，就先让在主线程执行的任务“跑起来”，让这个锁去卡住主线程，
+     * 这样后面轮到这个在主线程运行的 task 执行的时候，就 notify 一下，避免主线程卡在别处无法执行。
      */
-    public Task(String name) {
-        this.name = name;
-    }
+    private final byte[] runLock = new byte[0];
 
     /**
      * 构造方法
@@ -114,69 +91,41 @@ public abstract class Task {
     }
 
     /**
-     * 执行 task 的线程池，声明的任务，只要不是在主线程运行的，都会被放到这里线程池里面执行
-     *
-     * @return 线程池
-     */
-    private static ExecutorService getDefaultExecutor() {
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(
-                Runtime.getRuntime().availableProcessors(),
-                Runtime.getRuntime().availableProcessors(),
-                60L, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(),
-                new ThreadFactory() {
-                    private final AtomicInteger mCount = new AtomicInteger(1);
-
-                    public Thread newThread(Runnable r) {
-                        return new Thread(r, "Graph-Task Thread #" + mCount.getAndIncrement());
-                    }
-                });
-        executor.allowCoreThreadTimeOut(true);
-
-        return executor;
-    }
-
-
-    /**
      * 在其中实现该 task 具体执行的逻辑。<br>
      * <strong>注意：</strong>该函数应该只由框架的{@link #start()}来调用。
      */
-    public abstract void run();
+    public abstract void call();
 
-    /**
-     * 执行当前 task 的任务，这里会调用用户自定义的 {@link #run()}。
-     */
+    @Override
+    public final void run() {
+        notifyStarted();
+        long startTime = System.currentTimeMillis();
+
+        switchState(STATE_RUNNING);
+        Task.this.call();
+        switchState(STATE_FINISHED);
+
+        long finishTime = System.currentTimeMillis();
+
+        LogUtils.d("任务 " + name + " 耗时：" + (finishTime - startTime) + "ms，在 " + Thread.currentThread().getName() + " 线程中执行。");
+
+        notifyFinished();
+        recycle();
+    }
+
     public synchronized void start() {
         if (currentState != STATE_IDLE) {
             throw new RuntimeException("You try to run task " + name + " twice, is there a circular dependency?");
         }
 
         switchState(STATE_WAIT);
+        Dispatcher.getInstance().dispatch(this);
+        notifyDispatched();
+    }
 
-        if (internalRunnable == null) {
-            internalRunnable = () -> {
-                notifyStarted();
-                long startTime = System.currentTimeMillis();
-
-                switchState(STATE_RUNNING);
-                Task.this.run();
-                switchState(STATE_FINISHED);
-
-                long finishTime = System.currentTimeMillis();
-
-                LogUtils.d("任务 " + name + " 耗时：" + (finishTime - startTime) + "ms，在 " + Thread.currentThread().getName() + " 线程中执行。");
-
-                notifyFinished();
-                recycle();
-            };
-        }
-
-        if (isRunInUiThread) {
-            // 这里使用 handler post 的方式，如果主线程调用了 waitUntilFinish，
-            // 主线程会卡住，所以 runnable 永远无法执行
-            sUiThreadHandler.post(internalRunnable);
-        } else {
-            sTaskExecutor.execute(internalRunnable);
+    private void notifyDispatched() {
+        for (TaskLifecycleListener listener : taskLifecycleListeners) {
+            listener.onTaskDispatched(this);
         }
     }
 
@@ -271,6 +220,15 @@ public abstract class Task {
      * 一个task完成时的回调
      */
     public interface TaskLifecycleListener {
+
+        /**
+         * 当task被 dispatcher 调度的时候，会回调这个函数
+         * 这个回调的作用是用来唤醒被 {@link TaskManager#addGraphTask(GraphTask)} 这个方法卡住的线程的
+         *
+         * @param task 当前启动的 Task
+         */
+        default void onTaskDispatched(Task task) {
+        }
 
         /**
          * 当 task 开始时，会回调这个函数。
