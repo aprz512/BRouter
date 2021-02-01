@@ -1,0 +1,22 @@
+<resources>
+    <string name="home_navigate_to_wallet_component">跳转到钱包组件</string>
+    <string name="home_navigate_to_wallet_component2">跳转到钱包组件（带上参数）</string>
+    <string name="home_navigate_to_wallet_component3">跳转到钱包组件（带上参数，自动注入）</string>
+    <string name="home_features_are_in_development">功能正在开发中，敬请期待…</string>
+    <string name="home_navigate_login">跳转到登录页面去登录</string>
+    <string name="home_navigate_wallet_n">跳转到钱包页面，不传递参数，由于该页面有参数检测拦截器，可以点击试试效果（这里是页面拦截器在起作用）</string>
+    <string name="home_navigate_unknown_url">随便写一个 url，跳转是会发生什么呢？（这里是全局拦截器在起作用）</string>
+    <string name="home_navigate_wallet_after_login">点击上面的登录按钮，登录成功后，再次尝试登录到钱包页面，这个会传递参数</string>
+    <string name="home_wallet_crash_degrade">测试钱包页面的降级策略，新的钱包页面有 crash 检测，如果 crash 超过 3 次，则降级到老的钱包页面</string>
+    <string name="home_test_login_sdk">测试 login 组件对外提供的服务</string>
+    <string name="home_username_text">用户名：</string>
+    <string name="home_user_id_text">用户id：</string>
+    <string name="home_watch_user_info_after_login">去登录，然后回来观察用户信息是否同步了</string>
+    <string name="home_graph_task_test_case1">用例1</string>
+    <string name="home_graph_task_test_case2">用例2</string>
+    <string name="home_graph_task_test_case3">用例3</string>
+    <string name="home_graph_task_test_case4">用例4</string>
+    <string name="home_graph_task_test_case5">用例5</string>
+    <string name="home_graph_task_test_case6">用例6</string>
+    <string name="home_replace_with_fragment">点击将下方卡片内容替换为其他组件的fragment</string>
+</resources>

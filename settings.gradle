@@ -1,15 +1,20 @@
-include ':graph-task'
-include ':card-sdk'
 rootProject.name = "BRouter"
 
 include ':app'
 include ':base'
-include ':wallet'
-include ':login'
-include ':card'
+include ':graph-task'
 
-include ':login-sdk'
+include ':wallet'
 include ':wallet-sdk'
+
+include ':login'
+include ':login-sdk'
+
+include ':card'
+include ':card-sdk'
+
+include ':home'
+include ':home-sdk'
 
 include ':brouter_api'
 include ':brouter_annotation'
@@ -19,9 +24,5 @@ include ':code-isolation'
 
 include ':debug:login-debug'
 include ':debug:wallet-debug'
-
-//include ':component_impl'
-//include ':component_base'
-//include ':component_api'
 
 

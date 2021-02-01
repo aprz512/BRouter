@@ -34,7 +34,7 @@ public class BRouter$$Fragment$$card implements IModuleFragment {
 
 #### 获取 framgnet
 
-> com.aprz.brouter.fragment.FragmentRouteFragment#onCreateView
+> com.aprz.home.fragment.FragmentRouteFragment#onCreateView
 
 ```java
 Fragment fragment = FragmentHelper.getFragment(CardRouteUrl.Fragment.PREVIEW);

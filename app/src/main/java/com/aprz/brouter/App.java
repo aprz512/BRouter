@@ -12,7 +12,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         BRouter.init(this, false);
-        ModuleHelper.register("app");
+        ModuleHelper.register("home");
         ModuleHelper.register("wallet");
         ModuleHelper.register("login");
         ModuleHelper.register("card");
