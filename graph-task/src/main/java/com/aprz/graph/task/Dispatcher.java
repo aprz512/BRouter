@@ -11,24 +11,31 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Dispatcher {
 
-    private static final ExecutorService taskExecutor;
+    private static final ThreadPoolExecutor taskExecutor;
 
     private final LinkedBlockingQueue<Task> uiThreadTaskQueue = new LinkedBlockingQueue<>();
 
     private static final Dispatcher dispatcher = new Dispatcher();
 
     static {
-        taskExecutor = Executors.newCachedThreadPool(new ThreadFactory() {
-            private final AtomicInteger mCount = new AtomicInteger(1);
+        int processors = Runtime.getRuntime().availableProcessors();
+        taskExecutor = new ThreadPoolExecutor(processors, processors,
+                60L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
+                new ThreadFactory() {
+                    private final AtomicInteger mCount = new AtomicInteger(1);
 
-            public Thread newThread(Runnable r) {
-                return new Thread(r, "Graph-Task Thread #" + mCount.getAndIncrement());
-            }
-        });
+                    public Thread newThread(Runnable r) {
+                        return new Thread(r, "GraphTask Thread #" + mCount.getAndIncrement());
+                    }
+                });
+        taskExecutor.allowCoreThreadTimeOut(true);
     }
 
     private Dispatcher() {
@@ -64,8 +71,6 @@ public class Dispatcher {
                 new Handler(Looper.getMainLooper()).post(task);
             }
         }
-
-
     }
 
 }

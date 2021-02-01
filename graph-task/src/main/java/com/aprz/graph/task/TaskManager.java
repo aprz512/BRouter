@@ -1,7 +1,5 @@
 package com.aprz.graph.task;
 
-import android.os.Looper;
-
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;

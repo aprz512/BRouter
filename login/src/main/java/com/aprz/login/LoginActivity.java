@@ -18,7 +18,7 @@ import com.aprz.brouter.api.interceptor.IRouteInterceptor;
 import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdkimpl.UserManager;
 
-@Route(path = LoginRouteUrl.LOGIN_ACTIVITY)
+@Route(path = LoginRouteUrl.Activity.MAIN)
 public class LoginActivity extends BaseActivity {
 
     private EditText userNameEditText;

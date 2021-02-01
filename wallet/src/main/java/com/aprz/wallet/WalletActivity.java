@@ -19,7 +19,7 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route(path = WalletRouteUrl.WALLET_ACTIVITY)
+@Route(path = WalletRouteUrl.Activity.MAIN)
 public class WalletActivity extends BaseActivity {
 
     @Override
@@ -34,7 +34,7 @@ public class WalletActivity extends BaseActivity {
         FunctionEntry function = new FunctionEntry(
                 R.drawable.wallet_icon_credit_card,
                 R.string.wallet_credit_card,
-                () -> BRouter.getInstance().path(CardRouteUrl.CARD_ACTIVITY).navigate(this));
+                () -> BRouter.getInstance().path(CardRouteUrl.Activity.MAIN).navigate(this));
         functionEntryList.add(function);
 
         // adapter
@@ -55,7 +55,7 @@ public class WalletActivity extends BaseActivity {
         postDelay(() -> {
             finish();
             ToastUtils.sShow(this, "欸嘿，页面挂了");
-            CrashMonitor.pageCrashed(WalletRouteUrl.WALLET_ACTIVITY);
+            CrashMonitor.pageCrashed(WalletRouteUrl.Activity.MAIN);
         }, 5000L);
     }
 

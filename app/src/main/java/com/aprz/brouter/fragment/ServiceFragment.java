@@ -18,6 +18,9 @@ import com.aprz.login.sdk.IUserService;
 import com.aprz.login.sdk.LoginRouteUrl;
 import com.aprz.login.sdk.User;
 
+/**
+ * 测试组件服务
+ */
 public class ServiceFragment extends Fragment {
 
     @Nullable
@@ -36,7 +39,7 @@ public class ServiceFragment extends Fragment {
         });
 
         root.findViewById(R.id.login)
-                .setOnClickListener(v -> BRouter.getInstance().path(LoginRouteUrl.LOGIN_ACTIVITY).navigate());
+                .setOnClickListener(v -> BRouter.getInstance().path(LoginRouteUrl.Activity.MAIN).navigate());
 
         return root;
     }

@@ -14,6 +14,9 @@ import com.aprz.brouter.task.TaskCreator;
 import com.aprz.graph.task.GraphTask;
 import com.aprz.graph.task.TaskManager;
 
+/**
+ * 测试 GraphTask 库
+ */
 public class GraphTaskFragment extends Fragment {
 
     @Nullable
@@ -137,7 +140,7 @@ public class GraphTaskFragment extends Fragment {
     private void testCase6(View root) {
         root.findViewById(R.id.graph_task_test6)
                 .setOnClickListener(v -> {
-                    GraphTask first = new GraphTask.Builder().name("GraphTask SubTask")
+                    GraphTask subGraphTask = new GraphTask.Builder().name("GraphTask SubTask")
                             .taskCreator(new TaskCreator())
                             .add("TaskA").noDepends()
                             .add("TaskB").dependsOn("TaskA")
@@ -146,8 +149,8 @@ public class GraphTaskFragment extends Fragment {
                             .build();
                     GraphTask.Builder builder = new GraphTask.Builder().name("GraphTask TestCase 6")
                             .taskCreator(new TaskCreator())
-                            .add(first).noDepends()
-                            .add("TaskE").dependsOn(first)
+                            .add(subGraphTask).noDepends()
+                            .add("TaskE").dependsOn(subGraphTask)
                             .add("TaskF").noDepends()
                             .add("TaskG").dependsOn("TaskF");
                     TaskManager.getInstance()

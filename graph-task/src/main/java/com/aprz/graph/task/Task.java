@@ -45,12 +45,12 @@ public abstract class Task implements Runnable {
     /**
      * 是否在主线程执行
      */
-    private boolean isRunInUiThread;
+    private final boolean isRunInUiThread;
 
     /**
      * 该任务的“紧后”任务
      */
-    private final List<Task> successorList = new ArrayList<>();
+    private final Set<Task> successorList = new HashSet<>();
 
     /**
      * 该任务的“紧前”任务
@@ -66,14 +66,6 @@ public abstract class Task implements Runnable {
      * 该 Task 结束时的回调
      */
     private final List<TaskLifecycleListener> taskLifecycleListeners = new ArrayList<>();
-
-    /**
-     * 任务真正开始执行的锁，因为在主线程调用 {@link TaskManager#waitUntilFinish()} 方法的时候，如果
-     * 执行的任务有必须要在主线程运行的，则会导致死锁。
-     * 为了解决这个问题，所以在 task 执行的时候，就先让在主线程执行的任务“跑起来”，让这个锁去卡住主线程，
-     * 这样后面轮到这个在主线程运行的 task 执行的时候，就 notify 一下，避免主线程卡在别处无法执行。
-     */
-    private final byte[] runLock = new byte[0];
 
     /**
      * 构造方法
@@ -169,7 +161,6 @@ public abstract class Task implements Runnable {
      * 执行自己的任务。<br>
      * 该函数由紧前 Task 的{@link #notifyFinished()}来调用。
      */
-
     synchronized void onPredecessorFinished(Task beforeTask) {
         if (predecessorSet.isEmpty()) {
             return;
@@ -216,7 +207,7 @@ public abstract class Task implements Runnable {
         }
     }
 
-    public List<Task> getSuccessorList() {
+    public Set<Task> getSuccessorList() {
         return successorList;
     }
 

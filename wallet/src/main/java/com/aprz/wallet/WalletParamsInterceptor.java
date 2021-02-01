@@ -14,7 +14,7 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 /**
  * 该拦截器用来监测，跳转到 wallet 时，传递的参数是否合规
  */
-@Interceptor(path = WalletRouteUrl.WALLET_ACTIVITY)
+@Interceptor(path = WalletRouteUrl.Activity.MAIN)
 public class WalletParamsInterceptor implements IRouteInterceptor {
 
     @Override

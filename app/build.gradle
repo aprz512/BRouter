@@ -58,11 +58,14 @@ dependencies {
     implementation component(project(':wallet'))
     implementation component(project(':login'))
     implementation component(project(':card'))
+
+    // my libs
     implementation project(':graph-task')
 
     // component sdk
     implementation project(':wallet-sdk')
     implementation project(':login-sdk')
+    implementation project(':card-sdk')
 
     // route
     implementation project(path: ':brouter_annotation')

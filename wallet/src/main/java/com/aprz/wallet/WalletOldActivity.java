@@ -11,7 +11,7 @@ import com.aprz.brouter.annotation.Route;
 import com.aprz.brouter.api.core.BRouter;
 import com.aprz.wallet.sdk.WalletRouteUrl;
 
-@Route(path = WalletRouteUrl.WALLET_OLD_ACTIVITY)
+@Route(path = WalletRouteUrl.Activity.OLD_MAIN)
 public class WalletOldActivity extends AppCompatActivity {
 
     @Bind

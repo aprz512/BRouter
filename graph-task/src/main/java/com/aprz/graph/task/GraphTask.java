@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class GraphTask extends Task implements GraphTaskLifecycleListener {
 
@@ -105,7 +106,7 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
     }
 
     @Override
-    public List<Task> getSuccessorList() {
+    public Set<Task> getSuccessorList() {
         return startTask.getSuccessorList();
     }
 
@@ -273,7 +274,7 @@ public class GraphTask extends Task implements GraphTaskLifecycleListener {
 
 
     /**
-     * <p>从图的执行角度来讲，应该要有唯一的开始位置和唯一的结束位置。这样就可以准确衡量一个图的开始和结束。并且可以
+     * <p>从图的执行角度来讲，应该要有唯一的开始位置和唯一的结束位置。这样就可以准确衡量一个图的开始和结束，并且可以
      * 通过开始点和结束点，方便地将这个图嵌入到另外一个图中去。</p>
      * <p>但是从用户的角度来理解，他可能会有多个 task 可以同时开始，也可以有多个 task 作为结束点。</p>
      * <p>为了解决这个矛盾，框架提供一个默认的开始节点和默认的结束节点。并且将这两个点称为这个 GraphTak 的锚点。

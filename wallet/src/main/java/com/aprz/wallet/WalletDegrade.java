@@ -14,7 +14,7 @@ public class WalletDegrade implements IRouteDegrade {
     @Override
     public boolean isMatch(@NonNull Navigation navigation) {
         // 当新的 activity crash 次数超过限制了之后，需要降级
-        String targetPage = WalletRouteUrl.WALLET_ACTIVITY;
+        String targetPage = WalletRouteUrl.Activity.MAIN;
 
         return CrashMonitor.needDegrade(targetPage)
                 && targetPage.equals(navigation.getPath());
@@ -24,7 +24,7 @@ public class WalletDegrade implements IRouteDegrade {
     public void handleDegrade(@NonNull Navigation navigation) {
         // 降级，跳转到老的页面
         BRouter.getInstance()
-                .path(WalletRouteUrl.WALLET_OLD_ACTIVITY)
+                .path(WalletRouteUrl.Activity.OLD_MAIN)
                 .params(navigation.getParams())
                 .navigate();
     }

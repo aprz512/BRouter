@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.wallet_test).setOnClickListener(v -> {
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY2).navigate(this);
+            BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN_2).navigate(this);
         });
     }
 }

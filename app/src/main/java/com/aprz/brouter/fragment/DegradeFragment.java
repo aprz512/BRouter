@@ -31,7 +31,7 @@ public class DegradeFragment extends Fragment {
             bundle.putInt("count", 10);
             bundle.putString("message", "hello brouter");
             bundle.putLong("userId", 1L);
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY).params(bundle).navigate();
+            BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN).params(bundle).navigate();
         });
 
         return root;

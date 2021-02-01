@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.aprz.base.activity.BaseActivity;
 import com.aprz.brouter.fragment.DegradeFragment;
+import com.aprz.brouter.fragment.FragmentRouteFragment;
 import com.aprz.brouter.fragment.GraphTaskFragment;
 import com.aprz.brouter.fragment.InterceptorFragment;
 import com.aprz.brouter.fragment.NavigationFragment;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity {
         pairList.add(new TabPair(tabLayout.newTab().setText("拦截器"), new InterceptorFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("降级策略"), new DegradeFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("组件对外提供服务"), new ServiceFragment()));
+        pairList.add(new TabPair(tabLayout.newTab().setText("获取组件Fragment"), new FragmentRouteFragment()));
         pairList.add(new TabPair(tabLayout.newTab().setText("测试 GraphTask 库"), new GraphTaskFragment()));
 
         viewPager.setAdapter(new TabFragmentPagerAdapter(getSupportFragmentManager(), pairList));

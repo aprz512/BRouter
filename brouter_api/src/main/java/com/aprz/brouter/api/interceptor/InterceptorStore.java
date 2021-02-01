@@ -9,8 +9,8 @@ import java.util.Map;
 
 public class InterceptorStore {
 
-    private static Map<String, IRouteInterceptor> interceptorMap = new HashMap<>(32);
-    private static List<IRouteInterceptor> globalInterceptors = new ArrayList<>(32);
+    private static final Map<String, IRouteInterceptor> interceptorMap = new HashMap<>(32);
+    private static final List<IRouteInterceptor> globalInterceptors = new ArrayList<>(32);
 
     public static List<IRouteInterceptor> getInterceptorList(@NonNull String path) {
         List<IRouteInterceptor> interceptors = new ArrayList<>(globalInterceptors);

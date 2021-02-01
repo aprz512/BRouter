@@ -3,7 +3,7 @@ package com.aprz.brouter.api.service;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServiceStore {
+class ServiceStore {
 
     private static final Map<String, Object> serviceMap = new HashMap<>(32);
 

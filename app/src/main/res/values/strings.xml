@@ -19,4 +19,5 @@
     <string name="app_graph_task_test_case4">用例4</string>
     <string name="app_graph_task_test_case5">用例5</string>
     <string name="app_graph_task_test_case6">用例6</string>
+    <string name="app_replace_with_fragment">点击将下方卡片内容替换为其他组件的fragment</string>
 </resources>

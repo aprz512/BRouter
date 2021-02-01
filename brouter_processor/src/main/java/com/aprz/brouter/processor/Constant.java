@@ -6,7 +6,7 @@ public class Constant {
 
     public static final String APPLICATION = "android.app.Application";
     public static final String ACTIVITY = "android.app.Activity";
-    public static final String ARRAY_LIST = "java.util.ArrayList";
+    public static final String FRAGMENT = "androidx.fragment.app.Fragment";
     public static final String NAVIGATION = "com.aprz.brouter.api.core.Navigation";
 
 
@@ -14,7 +14,6 @@ public class Constant {
     public static final String INTERCEPTOR_CLASS_PREFIX = "BRouter$$Interceptor$$";
     public static final String INTERCEPTOR_MODULE = "com.aprz.brouter.api.interceptor.IModuleInterceptor";
     public static final String INTERCEPTOR_ROUTE = "com.aprz.brouter.api.interceptor.IRouteInterceptor";
-    public static final String INTERCEPTOR = "com.aprz.brouter.annotation.Interceptor";
     public static final String INTERCEPTOR_HELPER = "com.aprz.brouter.api.interceptor.InterceptorHelper";
 
 
@@ -33,6 +32,12 @@ public class Constant {
     public static final String SERVICE_CLASS_PREFIX = "BRouter$$Service$$";
     public static final String SERVICE_MODULE = "com.aprz.brouter.api.service.IModuleService";
     public static final String SERVICE_HELPER = "com.aprz.brouter.api.service.ServiceHelper";
+
+
+    public static final String FRAGMENT_PACKAGE_NAME = "com.aprz.brouter.fragments";
+    public static final String FRAGMENT_CLASS_PREFIX = "BRouter$$Fragment$$";
+    public static final String FRAGMENT_MODULE = "com.aprz.brouter.api.fragment.IModuleFragment";
+    public static final String FRAGMENT_HELPER = "com.aprz.brouter.api.fragment.FragmentHelper";
 
 
 }

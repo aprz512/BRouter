@@ -6,13 +6,12 @@ import com.aprz.brouter.api.IRouteModule;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RouteStore {
+class RouteStore {
 
     private static final String TAG = "RouteStore";
 
     private static final Map<String, Navigation> routeMap = new HashMap<>();
     private static final Map<String, IRouteMap> moduleMap = new HashMap<>();
-    private static Map<String, String> pathModuleMap = new HashMap<>();
 
     public static void injectModule(IRouteModule routeModule) {
         routeModule.loadModule(moduleMap);

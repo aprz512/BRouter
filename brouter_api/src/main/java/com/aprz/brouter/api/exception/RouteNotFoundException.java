@@ -1,4 +1,4 @@
-package com.aprz.brouter.api.ex;
+package com.aprz.brouter.api.exception;
 
 public class RouteNotFoundException extends Exception {
 

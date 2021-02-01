@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 /**
  * 因为我们的demo，只需要在 java -> class 的时候，让注解处理器搞一下，所以不需要到  class 级别
  * ARouter 的是 class，那可能是插件里面搞了啥
+ * 
+ * 用于标记 Activity，与 {@link FragmentRoute} 注解对应
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.SOURCE)

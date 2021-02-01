@@ -9,7 +9,7 @@ import com.aprz.brouter.api.core.BRouter;
 import com.aprz.brouter.api.core.Navigation;
 import com.aprz.brouter.api.degrade.DegradeHelper;
 import com.aprz.brouter.api.degrade.IRouteDegrade;
-import com.aprz.brouter.api.ex.RouteNotFoundException;
+import com.aprz.brouter.api.exception.RouteNotFoundException;
 import com.aprz.brouter.api.interceptor.IRouteInterceptor;
 
 /**

@@ -9,7 +9,7 @@ import com.aprz.base.util.ToastUtils;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.wallet.sdk.WalletRouteUrl;
 
-@Route(path = WalletRouteUrl.WALLET_ACTIVITY2)
+@Route(path = WalletRouteUrl.Activity.MAIN_2)
 public class WalletActivity2 extends AppCompatActivity {
 
     @Override

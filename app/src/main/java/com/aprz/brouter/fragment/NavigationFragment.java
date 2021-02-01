@@ -32,7 +32,7 @@ public class NavigationFragment extends Fragment {
             bundle.putInt("count", 10);
             bundle.putString("username", "who am i");
             bundle.putLong("userId", 1L);
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY2).params(bundle).navigate();
+            BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN_2).params(bundle).navigate();
         });
 
         view.findViewById(R.id.navigate_to_wallet3).setOnClickListener(v -> {
@@ -40,7 +40,7 @@ public class NavigationFragment extends Fragment {
             bundle.putInt("count", 100);
             bundle.putString("username", "monica");
             bundle.putLong("userId", 2L);
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY3).params(bundle).navigate();
+            BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN_3).params(bundle).navigate();
         });
 
         return view;

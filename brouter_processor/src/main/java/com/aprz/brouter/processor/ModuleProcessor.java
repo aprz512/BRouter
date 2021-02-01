@@ -67,7 +67,8 @@ public class ModuleProcessor extends BaseProcessor {
                     .builder(pkg, typeSpec)
                     .indent("    ")
                     .build().writeTo(mFiler);
-        } catch (IOException e) {
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 
@@ -93,6 +94,7 @@ public class ModuleProcessor extends BaseProcessor {
         methodSpecBuilder.addStatement("$T.addModuleInterceptor($S)", typeElement(Constant.INTERCEPTOR_HELPER), moduleName);
         methodSpecBuilder.addStatement("$T.addModuleDegrade($S)", typeElement(Constant.DEGRADE_HELPER), moduleName);
         methodSpecBuilder.addStatement("$T.addModuleService($S)", typeElement(Constant.SERVICE_HELPER), moduleName);
+        methodSpecBuilder.addStatement("$T.addModuleFragment($S)", typeElement(Constant.FRAGMENT_HELPER), moduleName);
         return methodSpecBuilder.build();
     }
 

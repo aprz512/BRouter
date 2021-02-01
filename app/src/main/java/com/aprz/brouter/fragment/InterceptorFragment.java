@@ -37,9 +37,9 @@ public class InterceptorFragment extends Fragment {
 
         navigateUnknownButton.setOnClickListener(v -> BRouter.getInstance().path("随便一个url").navigate());
 
-        navigateWalletButton.setOnClickListener(v -> BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY).navigate());
+        navigateWalletButton.setOnClickListener(v -> BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN).navigate());
 
-        navigateLoginButton.setOnClickListener(v -> BRouter.getInstance().path(LoginRouteUrl.LOGIN_ACTIVITY).navigate());
+        navigateLoginButton.setOnClickListener(v -> BRouter.getInstance().path(LoginRouteUrl.Activity.MAIN).navigate());
 
         navigateWalletAfterLoginButton.setOnClickListener(v -> {
             IUserService userService = ServiceHelper.getService(IUserService.NAME);
@@ -47,7 +47,7 @@ public class InterceptorFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putLong("userId", user.getUserId());
             bundle.putString("username", user.getUserName());
-            BRouter.getInstance().path(WalletRouteUrl.WALLET_ACTIVITY).params(bundle).navigate();
+            BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN).params(bundle).navigate();
         });
 
 

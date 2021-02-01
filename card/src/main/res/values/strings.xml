@@ -3,4 +3,6 @@
     <string name="card_add_bank_card">添加银行卡</string>
     <string name="card_add_bank_card_sub_desc">点击该卡片即可添加</string>
     <string name="card_credit_card">银行卡</string>
+    <string name="card_preview">预览</string>
+    <string name="card_nothing_here">这里什么都没有</string>
 </resources>

@@ -15,6 +15,7 @@ public class App extends Application {
         ModuleHelper.register("app");
         ModuleHelper.register("wallet");
         ModuleHelper.register("login");
+        ModuleHelper.register("card");
     }
 
     @Override

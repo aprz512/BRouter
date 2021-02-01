@@ -9,7 +9,7 @@ import com.aprz.base.viewlisteners.ListenerFactory;
 import com.aprz.brouter.annotation.Route;
 import com.aprz.card.sdk.CardRouteUrl;
 
-@Route(path = CardRouteUrl.CARD_ACTIVITY)
+@Route(path = CardRouteUrl.Activity.MAIN)
 public class CardActivity extends AppCompatActivity {
 
     @Override
