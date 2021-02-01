@@ -9,7 +9,27 @@
 
 <img src="img/preview1.png" width="30%"> <img src="img/preview2.png" width="30%"> <img src="img/preview3.png" width="30%">
 
-<img src="img/preview4.png" width="30%">  
+<img src="img/preview4.png" width="30%"> <img src="img/preview5.png" width="30%"> <img src="img/preview6.png" width="30%">
+
+<img src="img/preview7.png" width="30%"> <img src="img/preview8.png" width="30%"> <img src="img/preview9.png" width="30%">
+
+### 项目如何运行
+
+- 如果你在项目里面使用了插件注册的方式，如下
+
+    ```java
+    BRouter.init(this, true);
+    ```
+
+    **需要注意：** 因为有gradle插件，且工程使用的是本地maven依赖，所以需要先将 `brouter_api` 的插件发布出来，然后才能使用。
+    点击 brouter_api -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
+    
+    然后，将 app 下的 build.gradle 的 `//apply plugin: 'brouter'` 这行注释打开
+    
+- app 里面使用了代码隔离插件，所以也需要先将该插件发布到本地（发布的时候，可以先将对应的使用到该插件代码的位置注释掉，否则会无法同步）：
+  
+    点击 code-isolation -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
+
 
 
 ### 功能实现原理
@@ -32,20 +52,3 @@
 
 [组件之间公用代码下沉问题解决方案](组件之间公用代码下沉问题解决方案.md)
 
-
-
-### 项目如何运行
-- 如果你在项目里面使用了插件注册的方式，如下
-
-    ```java
-    BRouter.init(this, true);
-    ```
-
-    **需要注意：** 因为有gradle插件，且工程使用的是本地maven依赖，所以需要先将 `brouter_api` 的插件发布出来，然后才能使用。
-    点击 brouter_api -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
-    
-    然后，将 app 下的 build.gradle 的 `//apply plugin: 'brouter'` 这行注释打开
-    
-- app 里面使用了代码隔离插件，所以也需要先将该插件发布到本地（发布的时候，可以先将对应的使用到该插件代码的位置注释掉，否则会无法同步）：
-  
-    点击 code-isolation -> Tasks -> upload -> uploadArchives 即可将插件发布到项目下的 maven/repository  仓库里面，然后项目即可正常编译。
