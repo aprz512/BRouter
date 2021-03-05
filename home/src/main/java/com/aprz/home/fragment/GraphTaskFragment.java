@@ -1,19 +1,11 @@
 package com.aprz.home.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import com.aprz.base.inflater.AsyncLayoutInflater;
-import com.aprz.home.R;
-import com.aprz.home.task.TaskCreator;
 import com.aprz.graph.task.GraphTask;
 import com.aprz.graph.task.TaskManager;
+import com.aprz.home.R;
+import com.aprz.home.task.TaskCreator;
 
 /**
  * 测试 GraphTask 库
