@@ -18,22 +18,22 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 /**
  * 测试降级策略
  */
-public class DegradeFragment extends Fragment {
+public class DegradeFragment extends BaseViewPagerFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.home_fragment_degrade, container, false);
-
-        Button testWalletDegradeButton = root.findViewById(R.id.test_wallet_degrade);
-        testWalletDegradeButton.setOnClickListener(v-> {
+    protected void initView(View view) {
+        Button testWalletDegradeButton = view.findViewById(R.id.test_wallet_degrade);
+        testWalletDegradeButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putInt("count", 10);
             bundle.putString("message", "hello brouter");
             bundle.putLong("userId", 1L);
             BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN).params(bundle).navigate();
         });
+    }
 
-        return root;
+    @Override
+    protected int getFragmentContentId() {
+        return R.layout.home_fragment_degrade;
     }
 }

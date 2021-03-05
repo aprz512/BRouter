@@ -18,34 +18,26 @@ import com.aprz.graph.task.TaskManager;
 /**
  * 测试 GraphTask 库
  */
-public class GraphTaskFragment extends Fragment {
+public class GraphTaskFragment extends BaseViewPagerFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.home_fragment_stub, container, false);
+    protected int getFragmentContentId() {
+        return R.layout.home_fragment_graph_task;
+    }
 
-        // 异步记载布局试试
-        // 发现 com.google.android.material.theme.MaterialComponentsViewInflater.createButton 平均耗时 30ms
+    @Override
+    protected void initView(View view) {
+        testCase1(view);
 
-        new AsyncLayoutInflater(getActivity(), inflater)
-                .inflate(R.layout.home_fragment_graph_task, root.findViewById(R.id.container), (view, resId, parent) -> {
-            parent.addView(view);
+        testCase2(view);
 
-            testCase1(view);
+        testCase3(view);
 
-            testCase2(view);
+        testCase4(view);
 
-            testCase3(view);
+        testCase5(view);
 
-            testCase4(view);
-
-            testCase5(view);
-
-            testCase6(view);
-        });
-
-        return root;
+        testCase6(view);
     }
 
     /**

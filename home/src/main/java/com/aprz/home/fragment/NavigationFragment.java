@@ -16,13 +16,15 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 /**
  * 测试组件之间 activity 的跳转
  */
-public class NavigationFragment extends Fragment {
+public class NavigationFragment extends BaseViewPagerFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getFragmentContentId() {
+        return R.layout.home_fragment_navigation;
+    }
 
-        View view = inflater.inflate(R.layout.home_fragment_navigation, container, false);
+    @Override
+    protected void initView(View view) {
 
         view.findViewById(R.id.navigate_to_wallet2).setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -39,7 +41,5 @@ public class NavigationFragment extends Fragment {
             bundle.putLong("userId", 2L);
             BRouter.getInstance().path(WalletRouteUrl.Activity.MAIN_3).params(bundle).navigate();
         });
-
-        return view;
     }
 }

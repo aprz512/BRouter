@@ -21,19 +21,20 @@ import com.aprz.wallet.sdk.WalletRouteUrl;
 /**
  * 测试拦截器
  */
-public class InterceptorFragment extends Fragment {
+public class InterceptorFragment extends BaseViewPagerFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getFragmentContentId() {
+        return R.layout.home_fragment_interceptor;
+    }
 
-        View root = inflater.inflate(R.layout.home_fragment_interceptor, container, false);
+    @Override
+    protected void initView(View view) {
 
-
-        Button navigateUnknownButton = root.findViewById(R.id.navigate_to_unknown);
-        Button navigateLoginButton = root.findViewById(R.id.navigate_to_login);
-        Button navigateWalletButton = root.findViewById(R.id.navigate_to_wallet_n);
-        Button navigateWalletAfterLoginButton = root.findViewById(R.id.navigate_to_login_then_wallet);
+        Button navigateUnknownButton = view.findViewById(R.id.navigate_to_unknown);
+        Button navigateLoginButton = view.findViewById(R.id.navigate_to_login);
+        Button navigateWalletButton = view.findViewById(R.id.navigate_to_wallet_n);
+        Button navigateWalletAfterLoginButton = view.findViewById(R.id.navigate_to_login_then_wallet);
 
         navigateUnknownButton.setOnClickListener(v -> BRouter.getInstance().path("随便一个url").navigate());
 
@@ -51,6 +52,5 @@ public class InterceptorFragment extends Fragment {
         });
 
 
-        return root;
     }
 }

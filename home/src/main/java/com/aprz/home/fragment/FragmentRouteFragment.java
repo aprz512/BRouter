@@ -19,26 +19,26 @@ import com.aprz.home.R;
 /**
  * 测试获取其他组件的 Fragment
  */
-public class FragmentRouteFragment extends Fragment {
+public class FragmentRouteFragment extends BaseViewPagerFragment {
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected int getFragmentContentId() {
+        return R.layout.home_fragment_fragment_route;
+    }
 
-        View root = inflater.inflate(R.layout.home_fragment_fragment_route, container, false);
+    @Override
+    protected void initView(View view) {
 
-        root.findViewById(R.id.btn_fragment).setOnClickListener(v -> {
+        view.findViewById(R.id.btn_fragment).setOnClickListener(v -> {
             Fragment fragment = FragmentHelper.getFragment(CardRouteUrl.Fragment.PREVIEW);
             FragmentManager fragmentManager = getChildFragmentManager();
             if (fragmentManager.findFragmentByTag(fragment.getClass().getCanonicalName()) == null) {
-                root.findViewById(R.id.fragment_content).setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.transparent));
+                view.findViewById(R.id.fragment_content).setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.transparent));
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_content, fragment, fragment.getClass().getCanonicalName());
                 fragmentTransaction.commitNowAllowingStateLoss();
             }
         });
-
-        return root;
     }
 
 }
