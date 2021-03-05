@@ -33,7 +33,8 @@ public class ServiceFragment extends Fragment {
 
         IUserService userService = ServiceHelper.getService(IUserService.NAME);
 
-        userService.getUserStream().observe(this, (ObserverExt<User>) user -> {
+        // fix memory leak
+        userService.getUserStream().observe(getViewLifecycleOwner(), (ObserverExt<User>) user -> {
             userName.setText(user.getUserName());
             userId.setText(String.valueOf(user.getUserId()));
         });

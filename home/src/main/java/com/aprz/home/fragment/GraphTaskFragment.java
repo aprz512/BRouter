@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.aprz.base.inflater.AsyncLayoutInflater;
 import com.aprz.home.R;
 import com.aprz.home.task.TaskCreator;
 import com.aprz.graph.task.GraphTask;
@@ -22,20 +23,27 @@ public class GraphTaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.home_fragment_stub, container, false);
 
-        View root = inflater.inflate(R.layout.home_fragment_graph_task, container, false);
+        // 异步记载布局试试
+        // 发现 com.google.android.material.theme.MaterialComponentsViewInflater.createButton 平均耗时 30ms
 
-        testCase1(root);
+        new AsyncLayoutInflater(getActivity(), inflater)
+                .inflate(R.layout.home_fragment_graph_task, root.findViewById(R.id.container), (view, resId, parent) -> {
+            parent.addView(view);
 
-        testCase2(root);
+            testCase1(view);
 
-        testCase3(root);
+            testCase2(view);
 
-        testCase4(root);
+            testCase3(view);
 
-        testCase5(root);
+            testCase4(view);
 
-        testCase6(root);
+            testCase5(view);
+
+            testCase6(view);
+        });
 
         return root;
     }

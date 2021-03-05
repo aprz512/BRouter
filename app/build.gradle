@@ -43,6 +43,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.material:material:1.2.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     // component
     // 使用插件来进行代码隔离
